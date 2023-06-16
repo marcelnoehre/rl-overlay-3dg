@@ -1,6 +1,6 @@
 @font-face {
     font-family: norwester;
-    src: url('/assets/fonts/norwester.ttf');
+    src: url('assets/fonts/norwester.ttf');
 }
 
 html,
@@ -9,6 +9,7 @@ body {
     padding: 0;
     background: transparent;
     font-family: norwester;
+    text-transform: uppercase;
 }
 
 app-root {

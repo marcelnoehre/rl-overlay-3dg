@@ -12,23 +12,29 @@
 
 .team-left {
     transform: skew(10deg) translateX(-15px);
-    background: linear-gradient(to bottom left, #3c3c3c, #202020);
+    background: linear-gradient(to bottom left, #303f55, #202020);
     .players {
         transform: skew(-10deg);
+    }
+    .boost {
+        text-align: right;
     }
 }
 
 .team-right {
     right: 0;
     transform: skew(-10deg) translateX(15px);
-    background: linear-gradient(to bottom right, #3c3c3c, #202020);
+    background: linear-gradient(to bottom right, #303f55, #202020);
     .players {
         transform: skew(10deg);
+    }
+    .name {
+        text-align: right;
     }
 }
 
 .players {
-    width: 85%;
+    width: 80%;
     height: 90%;
     .player {
         height: 33.33%;
@@ -49,7 +55,6 @@
             }
             .boost {
                 width: 15%;
-                text-align: right;
             }
         }
         .boost-bar {

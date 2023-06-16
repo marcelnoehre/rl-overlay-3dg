@@ -3,14 +3,14 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(1920px * 0.6);
+    width: calc(1920px * 0.5);
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .league-information {
-    height: 30px;
+    height: 20px;
     width: 60%;
     display: flex;
     flex-direction: column;
@@ -19,17 +19,16 @@
     text-align: center;
     background: #202020;
     color: orange;
-    font-size: 25px;
-    text-transform: uppercase;
+    font-size: 15px;
 }
 
 .score-bug {
-    height: 100px;
+    height: 70px;
     width: 100%;
     display: flex;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(to right, transparent 10%, blue 10%, blue 50%, green 50%, green 90%, transparent 90%);
+    background: linear-gradient(to right, transparent 10%, orange 10%, orange 50%, green 50%, green 90%, transparent 90%);
     .time {
         height: 100%;
         width: 15%;
@@ -38,9 +37,9 @@
         justify-content: center;
         text-align: center;
         color: white;
-        background: radial-gradient(#3c3c3c, #202020);
-        font-size: 60px;
-        font-weight: bolder;
+        background: radial-gradient(#303f55, #202020);
+        font-size: 40px;
+        font-weight: bold;
     }
     .score {
         height: 100%;
@@ -50,10 +49,10 @@
         justify-content: center;
         text-align: center;
         color: white;
-        font-size: 70px;
+        font-size: 50px;
     }
     .score-left {
-        background: blue;
+        background: orange;
     }
     .score-right {
         background: green;
@@ -65,20 +64,20 @@
         text-align: center;
         color: white;
         font-size: 45px;
-        font-weight: bolder;
         padding: 0 25px;
         p {
             width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            margin-top: 3px;
         }
     }
     .team-left {
         transform: skew(10deg);
         transform-origin: left bottom;
-        background: linear-gradient(to bottom left, #3c3c3c, #202020, blue);
-        border: 7px solid blue;
+        background: linear-gradient(to bottom left, #303f55, #202020, orange);
+        border: 7px solid orange;
         border-right-width: 0;
         text-align: left;
         p {
@@ -88,7 +87,7 @@
     .team-right {
         transform: skew(-10deg);
         transform-origin: right bottom;
-        background: linear-gradient(to bottom right, #3c3c3c, #202020, green);
+        background: linear-gradient(to bottom right, #303f55, #202020, green);
         border: 7px solid green;
         border-left-width: 0;
         text-align: right;
@@ -103,10 +102,10 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        background: radial-gradient(#3c3c3c, #202020);
+        background: linear-gradient(to top, #303f55, #202020);
         img {
-            max-width: 95%;
-            max-height: 95%;
+            max-width: 100%;
+            max-height: 100%;
             width: auto;
             height: auto;
             object-fit: contain;
@@ -128,32 +127,35 @@
 }
 
 .series {
-    height: 30px;
+    height: 20px;
     align-self: center;
     display: flex;
     justify-content: center;
-    width: 40%;
-    background: #202020;
+    width: 35%;
+    background: linear-gradient(to top, #303f55, #202020);
+    border-radius: 5px;
     .series-information {
         display: flex;
         flex-direction: column;
         justify-content: center;
         text-align: center;
         height: 100%;
-        width: 135px;
+        width: 127px;
         color: orange;
-        font-size: 20px;
+        font-size: 15px;
     }
     .wins {
         height: 100%;
-        width: 160px;
+        width: 132px;
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
+        padding-left: 2px;
+        padding-right: 2px;
         .win {
-            margin-top: 6px;
-            height: 14px;
-            width: calc((160px - 4 * 15px) / 3);
-            border-radius: 3px;
+            margin-top: 2px;
+            height: 12px;
+            width: calc((132px - 4 * 10px) / 3);
+            border-radius: 5px;
         }
     }
 }
