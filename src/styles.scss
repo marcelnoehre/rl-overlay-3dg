@@ -1,8 +1,14 @@
+@font-face {
+    font-family: norwester;
+    src: url('/assets/fonts/norwester.ttf');
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
     background: transparent;
+    font-family: norwester;
 }
 
 app-root {
