@@ -1,6 +1,6 @@
-<div class="game-capture">
+<div class="game-capture" *ngIf="gameAvailable">
     <app-teams></app-teams>
     <app-score-bug></app-score-bug>
-    <!-- <app-director></app-director> -->
-    <app-replay></app-replay>
+    <app-director *ngIf="director"></app-director>
+    <app-replay *ngIf="replay"></app-replay>
 </div>

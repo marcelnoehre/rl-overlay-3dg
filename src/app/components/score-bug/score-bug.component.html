@@ -8,19 +8,19 @@
             <img src="assets/images/team-left.png">
         </div>
         <div class="team team-left">
-            <p>Team Bash</p>
+            <p>{{ teams[0].name }}</p>
         </div>
         <div class="score score-left">
-            <p>10</p>
+            <p>{{ teams[0].score }}</p>
         </div>
         <div class="time">
-            <p>4:59</p>
+            <p>{{ gameTime }}</p>
         </div>
         <div class="score score-right">
-            <p>3</p>
+            <p>{{ teams[1].score }}</p>
         </div>
         <div class="team team-right">
-            <p>3DG Vision</p>
+            <p>{{ teams[1].name }}</p>
         </div>
         <div class="logo logo-right">
             <img src="assets/images/team-right.png">
@@ -28,15 +28,15 @@
     </div>
     <div class="series">
         <div class="wins wins-left">
-            <div class="win"></div>
-            <div class="win"></div>
-            <div class="win"></div>
+            <ng-container *ngFor="let win of wins[0]">
+                <div class="win" style="--win-bg: {{win ? teams[0].color : '#303f55'}}"></div>
+            </ng-container>
         </div>
-        <div class="series-information">Nitro League Division 2.3 - Woche 3</div>
+        <div class="match-information">{{ matchInformation }}</div>
         <div class="wins wins-right">
-            <div class="win"></div>
-            <div class="win"></div>
-            <div class="win"></div>
+            <ng-container *ngFor="let win of wins[1]">
+                <div class="win" style="--win-bg: {{win ? teams[1].color : '#303f55'}}"></div>
+            </ng-container>
         </div>
     </div>
 </div>

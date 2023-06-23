@@ -1,3 +1,7 @@
+:root {
+    --target-boost: #{targetBoost};
+}
+
 .boost-container {
     position: absolute;
     bottom: 0;
@@ -6,7 +10,7 @@
     width: 250px;
     border-radius: 250px;
     transform: translateX(127px) translateY(127px);
-    background: conic-gradient(orange 87.5%, #202020 0%);
+    background: conic-gradient(orange var(--target-boost), #202020 0%);
     border: 2px solid #282f39;
 }
 

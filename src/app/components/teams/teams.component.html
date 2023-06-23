@@ -1,85 +1,27 @@
 <div class="team-container team-left">
     <div class="players">
-        <div class="player">
+        <div class="player" *ngFor="let player of players[0]">
             <div class="information">
                 <div class="name">
-                    s Q e e Z
+                    {{ player.name }}
                 </div>
                 <div class="boost">
-                    100
+                    {{ player.boost }}
                 </div>
-            </div>
-            <div class="boostbar">
-                <mat-progress-bar value="100"></mat-progress-bar>
-            </div>
-        </div>
-        <div class="player">
-            <div class="information">
-                <div class="name">
-                    s Q e e Z
-                </div>
-                <div class="boost">
-                    50
-                </div>
-            </div>
-            <div class="boostbar">
-                <mat-progress-bar value="50"></mat-progress-bar>
-            </div>
-        </div>
-        <div class="player">
-            <div class="information">
-                <div class="name">
-                    s Q e e Z
-                </div>
-                <div class="boost">
-                    0
-                </div>
-            </div>
-            <div class="boostbar">
-                <mat-progress-bar value="0"></mat-progress-bar>
             </div>
         </div>
     </div>
 </div>
 <div class="team-container team-right">
     <div class="players">
-        <div class="player">
+        <div class="player" *ngFor="let player of players[1]">
             <div class="information">
-                <div class="boost">
-                    100
-                </div>
                 <div class="name">
-                    s Q e e Z
+                    {{ player.name }}
                 </div>
-            </div>
-            <div class="boostbar">
-                <mat-progress-bar value="100"></mat-progress-bar>
-            </div>
-        </div>
-        <div class="player">
-            <div class="information">
                 <div class="boost">
-                    50
+                    {{ player.boost }}
                 </div>
-                <div class="name">
-                    s Q e e Z
-                </div>
-            </div>
-            <div class="boostbar">
-                <mat-progress-bar value="50"></mat-progress-bar>
-            </div>
-        </div>
-        <div class="player">
-            <div class="information">
-                <div class="boost">
-                    0
-                </div>
-                <div class="name">
-                    s Q e e Z
-                </div>
-            </div>
-            <div class="boostbar">
-                <mat-progress-bar value="0"></mat-progress-bar>
             </div>
         </div>
     </div>

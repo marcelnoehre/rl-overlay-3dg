@@ -1,27 +1,27 @@
-<div class="director-container">
+<div class="director-container" *ngIf="target.length > 0">
     <div class="name">
-        <p>s Q e e Z</p>
+        <p>{{ target[0].name }}</p>
     </div>
     <div class="stats">
         <div>
             <div>2</div>
-            <div class="caption">&nbsp;goals</div>
+            <div class="caption">&nbsp;{{ target[0].goals }}</div>
         </div>
         <div>
             <div>1</div>
-            <div class="caption">&nbsp;assists</div>
+            <div class="caption">&nbsp;{{ target[0].assists }}</div>
         </div>
         <div>
             <div>7</div>
-            <div class="caption">&nbsp;saves</div>
+            <div class="caption">&nbsp;{{ target[0].saves }}</div>
         </div>
         <div>
             <div>11</div>
-            <div class="caption">&nbsp;shots</div>
+            <div class="caption">&nbsp;{{ target[0].shots }}</div>
         </div>
     </div>
 </div>
 <div class="boost-container"></div>
 <div class="inner-boost">
-    <div class="boost">50</div>
+    <div class="boost">{{ target[0].boost }}</div>
 </div>

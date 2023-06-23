@@ -9,15 +9,16 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export class DataService {
     private _teams: BehaviorSubject<Team[]> = new BehaviorSubject<Team[]>([]);
-    private _players: BehaviorSubject<Player[]> = new BehaviorSubject<Player[]>([]);
+    private _players: BehaviorSubject<Player[][]> = new BehaviorSubject<Player[][]>([]);
     private _gametime: BehaviorSubject<string> = new BehaviorSubject<string>('5:00');
-    private _gameStatus: BehaviorSubject<string> = new BehaviorSubject<string>('NO_GAME');
+    private _gameAvailable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
     private _overtime: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _replay: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _director: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     private mapping: { [key: string]: number } = {}
-    private teams!: Team[];
-    private players!: Player[];
+    private teams: Team[] = [];
+    private players: Player[] = [];
     private stats!: Stats;
 
     init(): void {
@@ -27,7 +28,8 @@ export class DataService {
             score: 0,
             wins: 0,
             players: []
-        }, {
+        });
+        this.teams.push({
             name: '',
             color: '',
             score: 0,
@@ -82,13 +84,20 @@ export class DataService {
         this.players[this.mapping[id]].target = target;
     }
 
+    setPlayers(): void {
+        this._players.next([
+            this.players.filter(player => player.team === 0),
+            this.players.filter(player => player.team === 1)
+        ]);
+    }
+
+    setGameAvailable(gameAvailable: boolean): void {
+        this._gameAvailable.next(gameAvailable);
+    }
+
     setGameTime(time: number): void {
         //TODO: calculate time
         this._gametime.next('');
-    }
-
-    setGameStatus(status: string): void {
-        this._gameStatus.next(status);
     }
 
     setOvertime(overtime: boolean): void {
@@ -116,16 +125,16 @@ export class DataService {
         return this._teams.asObservable();
     }
 
-    get players$(): Observable<Player[]> {
+    get players$(): Observable<Player[][]> {
         return this._players.asObservable();
+    }
+
+    get gameAvailable$(): Observable<boolean> {
+        return this._gameAvailable.asObservable();
     }
 
     get gametime$(): Observable<string> {
         return this._gametime.asObservable();
-    }
-
-    get gameStatus$(): Observable<string> {
-        return this._gameStatus.asObservable();
     }
 
     get overtime$(): Observable<boolean> {
@@ -134,5 +143,9 @@ export class DataService {
     
     get replay$(): Observable<boolean> {
         return this._replay.asObservable();
+    }
+
+    get director$(): Observable<boolean> {
+        return this._director.asObservable();
     }
 }

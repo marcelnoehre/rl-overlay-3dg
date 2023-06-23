@@ -1,3 +1,7 @@
+:root {
+    --series-length: #{seriesLength};
+}
+
 .spacer {
     position: absolute;
     top: 0px;
@@ -153,7 +157,7 @@
     display: flex;
     justify-content: center;
     width: 82%;
-    .series-information {
+    .match-information {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -177,8 +181,8 @@
         .win {
             margin-top: 5px;
             height: 8px;
-            width: calc((100% - ((3 + 1) * 10px)) / 3); //TODO: set wins amount
-            background: #303f55;
+            width: calc((100% - ((var(--series-length) + 1) * 10px)) / var(--series-length));
+            background: var(--win-bg);
         }
     }
     .wins-left {
