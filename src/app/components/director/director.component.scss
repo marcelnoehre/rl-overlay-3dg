@@ -1,0 +1,48 @@
+.director-container {
+    position: absolute;
+    bottom: 50px;
+    left: 65px;
+    width: calc(1920px * 0.25);
+    height: 100px;
+    transform: skew(-10deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(to bottom left, #303f55, #202020);
+    color: white;
+    font-size: 25px;
+}
+
+.name {
+    height: calc(50% - 5px);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    p {
+        margin-top: 2px;
+        transform: skew(10deg);
+        padding-left: 5%;
+    }
+}
+
+.stats {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    background: linear-gradient(to top, #202020 80%, orange);
+    div {
+        padding-top: 5px;
+        display: flex;
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+    .caption {
+        color: grey;
+        font-size: 20px;
+    }
+}
