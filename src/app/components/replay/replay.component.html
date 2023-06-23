@@ -8,15 +8,15 @@
     <div class="goal-information">
         <div>
             <img src="assets/images/icons/goal.png">
-            <div>s Q e e Z</div>
+            <div>{{ goal.scorer }}</div>
+        </div>
+        <div *ngIf="goal.assistant">
+            <img src=" assets/images/icons/assist.png ">
+            <div>{{ goal.assistant }}</div>
         </div>
         <div>
-            <img src="assets/images/icons/assist.png">
-            <div>Stee_</div>
-        </div>
-        <div>
-            <img src="assets/images/icons/goal-speed.png">
-            <div>123km/h</div>
+            <img src="assets/images/icons/goal-speed.png ">
+            <div>{{ goal.speed }}</div>
         </div>
     </div>
 </div>
