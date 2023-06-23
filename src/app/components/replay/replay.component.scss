@@ -1,0 +1,65 @@
+.replay-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: calc(1920px * 0.35);
+    height: 50px;
+    transform: skew(10deg) translateX(-10px);
+    display: flex;
+    background: linear-gradient(to bottom left, #303f55, #202020);
+    color: white;
+    font-size: 25px;
+    border-top: 5px solid orange;
+    border-right: 5px solid orange;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transform: skew(-10deg);
+    width: 30%;
+    .replay {
+        display: flex;
+        justify-content: center;
+    }
+    .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background-color: red;
+        animation: pulsate 1s infinite;
+        margin-right: 5px;
+    }
+}
+
+.goal-information {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    width: 80%;
+    transform: skew(-10deg);
+    div {
+        display: flex;
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    }
+}
+
+@keyframes pulsate {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.5;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

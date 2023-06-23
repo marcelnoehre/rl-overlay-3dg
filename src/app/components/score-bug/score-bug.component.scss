@@ -44,8 +44,15 @@
         text-align: center;
         color: white;
         background: radial-gradient(#303f55, #202020);
-        font-size: 40px;
+        font-size: 50px;
         font-weight: bold;
+        p {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 10px;
+        }
     }
     .score {
         z-index: 5;
@@ -56,7 +63,14 @@
         justify-content: center;
         text-align: center;
         color: white;
-        font-size: 50px;
+        font-size: 60px;
+        p {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 5px;
+        }
     }
     .score-left {
         background: orange;
@@ -70,14 +84,14 @@
         justify-content: space-between;
         text-align: center;
         color: white;
-        font-size: 45px;
+        font-size: 50px;
         padding: 0 25px;
         p {
             width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin-top: 3px;
+            margin-top: 5px;
         }
     }
     .team-left {
@@ -142,7 +156,7 @@
     .series-information {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-end;
         text-align: center;
         height: calc(100% - 2px);
         width: 300px;

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { ScoreBugComponent } from './components/score-bug/score-bug.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { DirectorComponent } from './components/director/director.component';
+import { ReplayComponent } from './components/replay/replay.component';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -15,7 +16,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     AppComponent,
     ScoreBugComponent,
     TeamsComponent,
-    DirectorComponent
+    DirectorComponent,
+    ReplayComponent
   ],
   imports: [
     BrowserModule,
