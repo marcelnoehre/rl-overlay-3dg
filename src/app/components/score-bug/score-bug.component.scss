@@ -1,34 +1,40 @@
-.score-bug-container {
+.spacer {
     position: absolute;
-    top: 0;
+    top: 0px;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(1920px * 0.5);
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: 4px;
+    .spacer-left {
+        width: 528px;
+        transform: skew(10deg) translateX(2.5px);
+        background: #202020;
+    }
+    .spacer-right {
+        width: 528px;
+        transform: skew(-10deg) translateX(-2.5px);
+        background: #202020;
+    }
 }
 
-.league-information {
-    height: 20px;
-    width: 60%;
+.score-bug-container {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(1920px * 0.55);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-self: center;
-    text-align: center;
-    background: #202020;
-    color: orange;
-    font-size: 15px;
 }
 
 .score-bug {
-    height: 70px;
+    height: 80px;
     width: 100%;
     display: flex;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(to right, transparent 10%, orange 10%, orange 50%, green 50%, green 90%, transparent 90%);
+    margin-top: 3px;
     .time {
         height: 100%;
         width: 15%;
@@ -42,8 +48,9 @@
         font-weight: bold;
     }
     .score {
+        z-index: 5;
         height: 100%;
-        width: 7.5%;
+        width: 9%;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -58,7 +65,7 @@
         background: green;
     }
     .team {
-        width: 30%;
+        width: calc(35% + 30px);
         display: flex;
         justify-content: space-between;
         text-align: center;
@@ -74,7 +81,7 @@
         }
     }
     .team-left {
-        transform: skew(10deg);
+        transform: skew(10deg) translateX(15px);
         transform-origin: left bottom;
         background: linear-gradient(to bottom left, #303f55, #202020, orange);
         border: 7px solid orange;
@@ -85,7 +92,7 @@
         }
     }
     .team-right {
-        transform: skew(-10deg);
+        transform: skew(-10deg) translateX(-15px);
         transform-origin: right bottom;
         background: linear-gradient(to bottom right, #303f55, #202020, green);
         border: 7px solid green;
@@ -113,15 +120,15 @@
         }
     }
     .logo-left {
-        transform: skew(10deg);
+        transform: skew(10deg) translateX(10px);
         img {
-            transform: skew(-10deg);
+            transform: skew(-10deg) translateY(-3px);
         }
     }
     .logo-right {
-        transform: skew(-10deg);
+        transform: skew(-10deg) translateX(-10px);
         img {
-            transform: skew(10deg);
+            transform: skew(10deg) translateY(-3px);
         }
     }
 }
@@ -131,31 +138,45 @@
     align-self: center;
     display: flex;
     justify-content: center;
-    width: 35%;
-    background: linear-gradient(to top, #303f55, #202020);
-    border-radius: 5px;
+    width: 82%;
     .series-information {
         display: flex;
         flex-direction: column;
         justify-content: center;
         text-align: center;
-        height: 100%;
-        width: 127px;
+        height: calc(100% - 2px);
+        width: 300px;
         color: orange;
         font-size: 15px;
+        background: #202020;
+        border: 1px solid #202020;
     }
     .wins {
-        height: 100%;
-        width: 132px;
+        height: calc(100% - 2px);
+        width: calc((100% - 200px) / 2);
         display: flex;
-        justify-content: space-between;
+        justify-content: space-evenly;
         padding-left: 2px;
         padding-right: 2px;
+        background: #202020;
+        border: 1px solid #202020;
         .win {
-            margin-top: 2px;
-            height: 12px;
-            width: calc((132px - 4 * 10px) / 3);
-            border-radius: 5px;
+            margin-top: 5px;
+            height: 8px;
+            width: calc((100% - ((3 + 1) * 10px)) / 3); //TODO: set wins amount
+            background: #303f55;
+        }
+    }
+    .wins-left {
+        transform: skew(10deg) translateX(10px);
+        .win {
+            transform: skew(-10deg);
+        }
+    }
+    .wins-right {
+        transform: skew(-10deg) translateX(-10px);
+        .win {
+            transform: skew(10deg);
         }
     }
 }
