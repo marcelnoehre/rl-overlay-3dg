@@ -1,9 +1,39 @@
+.boost-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 250px;
+    width: 250px;
+    border-radius: 250px;
+    transform: translateX(127px) translateY(127px);
+    background: conic-gradient(orange 87.5%, #202020 0%);
+    border: 2px solid #282f39;
+}
+
+.inner-boost {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 200px;
+    width: 200px;
+    border-radius: 200px;
+    transform: translateX(100px) translateY(100px);
+    background: radial-gradient(#303f55, #202020);
+    border: 2px solid #282f39;
+    .boost {
+        padding: 45px;
+        color: white;
+        font-size: 40px;
+        border-radius: 200px;
+    }
+}
+
 .director-container {
     position: absolute;
-    bottom: 50px;
-    left: 65px;
-    width: calc(1920px * 0.25);
-    height: 100px;
+    bottom: 0;
+    right: 0;
+    width: calc(1920px * 0.275);
+    height: 75px;
     transform: skew(-10deg);
     display: flex;
     flex-direction: column;
@@ -15,10 +45,11 @@
 
 .name {
     height: calc(50% - 5px);
-    width: 100%;
+    width: 78%;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-bottom: 5px solid orange;
     p {
         margin-top: 2px;
         transform: skew(10deg);
@@ -28,12 +59,11 @@
 
 .stats {
     height: 50%;
-    width: 100%;
+    width: 78%;
     display: flex;
     justify-content: space-evenly;
-    background: linear-gradient(to top, #202020 80%, orange);
+    background: #202020;
     div {
-        padding-top: 5px;
         display: flex;
         div {
             display: flex;
