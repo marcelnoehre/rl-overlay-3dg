@@ -68,6 +68,7 @@
         text-align: center;
         color: white;
         font-size: 60px;
+        background: var(--team-color);
         p {
             height: 100%;
             display: flex;
@@ -75,12 +76,6 @@
             justify-content: flex-end;
             padding-bottom: 5px;
         }
-    }
-    .score-left {
-        background: orange;
-    }
-    .score-right {
-        background: green;
     }
     .team {
         width: calc(35% + 30px);
@@ -90,6 +85,7 @@
         color: white;
         font-size: 50px;
         padding: 0 25px;
+        border: 7px solid var(--team-color);
         p {
             width: 100%;
             display: flex;
@@ -101,8 +97,7 @@
     .team-left {
         transform: skew(10deg) translateX(15px);
         transform-origin: left bottom;
-        background: linear-gradient(to bottom left, #303f55, #202020, orange);
-        border: 7px solid orange;
+        background: linear-gradient(to bottom left, #303f55, #202020, var(--team-color));
         border-right-width: 0;
         text-align: left;
         p {
@@ -112,8 +107,7 @@
     .team-right {
         transform: skew(-10deg) translateX(-15px);
         transform-origin: right bottom;
-        background: linear-gradient(to bottom right, #303f55, #202020, green);
-        border: 7px solid green;
+        background: linear-gradient(to bottom right, #303f55, #202020, var(--team-color));
         border-left-width: 0;
         text-align: right;
         p {

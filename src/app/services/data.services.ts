@@ -52,8 +52,12 @@ export class DataService {
         this.teams[team].score = score;
     }
 
-    setTeamWins(team: number, wins: number) {
-        this.teams[team].wins = wins;
+    setTeamWins(team: number) {
+        this.teams[team].wins = this.teams[team].wins++;
+    }
+
+    setTeams(): void {
+        this._teams.next(this.teams);
     }
 
     setPlayerId(id: string, name: string, team: number): void {
@@ -87,8 +91,8 @@ export class DataService {
 
     setPlayers(): void {
         this._players.next([
-            this.players.filter(player => player.team === 0),
-            this.players.filter(player => player.team === 1)
+            this.players.filter(player => this.mapping.hasOwnProperty(player.id) && player.team === 0),
+            this.players.filter(player => this.mapping.hasOwnProperty(player.id) && player.team === 1)
         ]);
     }
 
@@ -101,8 +105,8 @@ export class DataService {
     }
 
     setGameTime(time: number): void {
-        //TODO: calculate time
-        this._gametime.next('');
+        const remainingSeconds: string = (time % 60) < 10 ? '0' + time % 60 : '' + time % 60;
+        this._gametime.next(`${Math.floor(time / 60)}:${remainingSeconds}`);
     }
 
     setOvertime(overtime: boolean): void {
@@ -117,7 +121,6 @@ export class DataService {
         this.stats.ballPosession[team]++;
     }
 
-    //TODO: get ball touch event
     setBoostConsumption(team: number, boost: number): void {
         this.stats.boostConsumption[team] += boost;
     }

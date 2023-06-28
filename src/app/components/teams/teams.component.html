@@ -9,6 +9,9 @@
                     {{ player.boost }}
                 </div>
             </div>
+            <div class="boostbar">
+                <mat-progress-bar [value]="player.boost" style="--slider-color: {{teams[player.team].color}}"></mat-progress-bar>
+            </div>
         </div>
     </div>
 </div>
@@ -22,6 +25,9 @@
                 <div class="boost">
                     {{ player.boost }}
                 </div>
+            </div>
+            <div class="boostbar">
+                <mat-progress-bar [value]="player.boost" style="--slider-color: {{teams[player.team].color}}"></mat-progress-bar>
             </div>
         </div>
     </div>

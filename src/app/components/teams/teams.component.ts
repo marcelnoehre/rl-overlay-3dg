@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from 'src/app/interfaces/player';
+import { Team } from 'src/app/interfaces/team';
 import { DataService } from 'src/app/services/data.services';
 
 @Component({
@@ -8,6 +9,7 @@ import { DataService } from 'src/app/services/data.services';
   styleUrls: ['./teams.component.scss']
 })
 export class TeamsComponent implements OnInit {
+  teams: Team[] = [];
   players: Player[][] = [];
 
   constructor(private _data: DataService) {}
@@ -15,6 +17,9 @@ export class TeamsComponent implements OnInit {
   ngOnInit(): void {
     this._data.players$.subscribe((players: Player[][]) => {
       this.players = players;
+    });
+    this._data.teams$.subscribe((teams: Team[]) => {
+      this.teams = teams;
     });
   }
 }

@@ -2,7 +2,6 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: calc(1920px * 0.35); //reduce size if no assist is given
     height: 50px;
     transform: skew(10deg) translateX(-10px);
     display: flex;
@@ -18,7 +17,7 @@
     flex-direction: column;
     justify-content: center;
     transform: skew(-10deg);
-    width: 30%;
+    padding-left: 25px;
     .replay {
         display: flex;
         justify-content: center;
@@ -37,8 +36,10 @@
     display: flex;
     justify-content: space-between;
     padding-right: 10px;
-    width: 80%;
     transform: skew(-10deg);
+    .info {
+        padding-left: 20px;
+    }
     div {
         display: flex;
         div {

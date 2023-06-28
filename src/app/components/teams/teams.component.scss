@@ -28,9 +28,6 @@
     .players {
         transform: skew(10deg);
     }
-    .name {
-        text-align: right;
-    }
 }
 
 .players {
@@ -71,14 +68,8 @@
     mat-progress-bar {
         background-color: black;
     }
-    .team-right {
-        mat-progress-bar {
-            color: green;
-        }
-    }
-    .team-left {
-        mat-progress-bar {
-            color: blue;
-        }
+
+    .mdc-linear-progress__bar-inner {
+        border-color: var(--slider-color);
     }
 }

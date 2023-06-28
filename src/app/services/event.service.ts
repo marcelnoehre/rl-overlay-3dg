@@ -9,7 +9,7 @@ export class EventService {
     private _goalScored: BehaviorSubject<Goal> = new BehaviorSubject<Goal>({scorer: '', assistant: '', speed: ''});
 
     fireGoalScored(scorer: string, speed: number, assistant?: string): void {
-        this._goalScored.next({scorer: scorer, assistant: assistant, speed: speed + 'km/h'});
+        this._goalScored.next({scorer: scorer, assistant: assistant, speed: Math.round((speed + Number.EPSILON) * 100) / 100 + 'km/h'});
     }
 
     get eventGoalScored$(): Observable<Goal> {

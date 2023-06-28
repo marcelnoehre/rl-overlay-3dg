@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { DataService } from "./data.services";
+import { EventService } from "./event.service";
 
 @Injectable({
     providedIn: 'root'
@@ -9,9 +10,17 @@ export class WebsocketService {
     private webSocket!: WebSocket;
     private webSocketConnected = false;
     private registerQueue: string[] = [];
-    private data: DataService = new DataService;
+    private setupDone: boolean = false;
+    private activePlayers: string[] = [];
 
-    init(port: number = 49322): void {
+    constructor(
+        private _data: DataService,
+        private _event: EventService
+        ) {
+
+    }
+
+    init(port: number = 49122): void {
         this.webSocket = new WebSocket(`ws://localhost:${port}`);
 
         this.webSocket.onmessage = (event) => {
@@ -43,52 +52,61 @@ export class WebsocketService {
             this.triggerSubscribers("ws", "close");
             this.webSocketConnected = false;
         };
+        this.setup();
     }
 
     setup(): void {
         this.subscribe('game', ['initialized', 'match_destroyed'], () => {
-            this.data.setMatchOverview(false);
-            this.data.setGameAvailable(true);
+            this._data.setMatchOverview(false);
+            this._data.setGameAvailable(true);
         });
-        this.subscribe('game', ['match_ended'], () => {
-            this.data.setGameAvailable(false);
-            //update series wins
+        this.subscribe('game', ['match_ended'], (data: any) => {
+            this._data.setGameAvailable(false);
+            this._data.setTeamWins(data.winner_team_num);
         });
         this.subscribe('game', ['podium_start'], () => {
-            this.data.setMatchOverview(true);
+            this._data.setMatchOverview(true);
         });
         this.subscribe('game', ['replay_start'], () => {
-            this.data.setReplay(true);
+            this._data.setReplay(true);
         });
         this.subscribe('game', ['replay_end'], () => {
-            this.data.setReplay(false);
+            this._data.setReplay(false);
         }); 
         this.subscribe('game', ['update_state'], (data: any) => {
-            //TODO:
-
-            //SetTeamInformation (1st)
-            //SetPlayerID (1st)
-            //SetTeamScore
-            //SetTeamWins
-            //SetPlayerStats
-            //SetPlayers$
-            //SetGameTime (+ if ot)
-            //SetOvertime
-            //setBoostConsumption
-            //removePlayer
-            console.dir(data);
+            if(!this.setupDone && data.game.teams) {
+                this._data.setTeamInformation(0, data.game.teams[0].name, '#' + data.game.teams[0].color_primary);
+                this._data.setTeamInformation(1, data.game.teams[1].name, '#' + data.game.teams[1].color_primary);
+                this.setupDone = true;
+            }
+            for (const key in data.players) {
+                if(!this.activePlayers.includes(key)) {
+                    this.activePlayers.push(key);
+                    this._data.setPlayerId(key, data.players[key].name, data.players[key].team);
+                }
+                for(const player of this.activePlayers) {
+                    if(!data.players.hasOwnProperty(player)) {
+                        this._data.removePlayer(player);
+                        this.activePlayers = this.activePlayers.filter((active) => active !== player);
+                    }
+                }
+                this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.hasTarget ? data.game.target === key : false);
+            }
+            this._data.setTeamScore(0, data.game.teams[0].score);
+            this._data.setTeamScore(1, data.game.teams[1].score);
+            this._data.setTeams();
+            this._data.setGameTime(data.game.time_seconds);
+            this._data.setOvertime(data.game.isOT);
+            this._data.setPlayers();
         });
         this.subscribe('game', ['ball_hit'], (data: any) => {
             //TODO: update ballPossession
-            console.dir(data);
         });
         this.subscribe('game', ['statfeed_event'], (data: any) => {
             //TODO: throw events
-            console.dir(data);
         });
         this.subscribe('game', ['goal_scored'], (data: any) => {
-            //TODO: handle goal
-            console.dir(data);
+            this._event.fireGoalScored(data.scorer.name, data.goalspeed, data.scorer.assister);
         });
         
         

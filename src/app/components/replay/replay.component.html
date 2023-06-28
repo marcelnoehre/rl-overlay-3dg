@@ -6,15 +6,15 @@
         </div>
     </div>
     <div class="goal-information">
-        <div>
+        <div class="info">
             <img src="assets/images/icons/goal.png">
             <div>{{ goal.scorer }}</div>
         </div>
-        <div *ngIf="goal.assistant">
+        <div class="info" *ngIf="goal.assistant">
             <img src=" assets/images/icons/assist.png ">
             <div>{{ goal.assistant }}</div>
         </div>
-        <div>
+        <div class="info">
             <img src="assets/images/icons/goal-speed.png ">
             <div>{{ goal.speed }}</div>
         </div>
