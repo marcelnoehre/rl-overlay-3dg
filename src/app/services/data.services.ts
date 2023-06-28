@@ -5,13 +5,14 @@ import { Stats } from "../interfaces/stats";
 import { BehaviorSubject, Observable } from "rxjs";
 
 @Injectable({
-	providedIn: 'root'
+    providedIn: 'root'
 })
 export class DataService {
     private _teams: BehaviorSubject<Team[]> = new BehaviorSubject<Team[]>([]);
     private _players: BehaviorSubject<Player[][]> = new BehaviorSubject<Player[][]>([]);
     private _gametime: BehaviorSubject<string> = new BehaviorSubject<string>('5:00');
     private _gameAvailable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+    private _matchOverview: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _overtime: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _replay: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _director: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -95,6 +96,10 @@ export class DataService {
         this._gameAvailable.next(gameAvailable);
     }
 
+    setMatchOverview(matchOverview: boolean): void {
+        this._matchOverview.next(matchOverview);
+    }
+
     setGameTime(time: number): void {
         //TODO: calculate time
         this._gametime.next('');
@@ -131,6 +136,10 @@ export class DataService {
 
     get gameAvailable$(): Observable<boolean> {
         return this._gameAvailable.asObservable();
+    }
+
+    get matchOverview$(): Observable<boolean> {
+        return this._matchOverview.asObservable();
     }
 
     get gametime$(): Observable<string> {

@@ -1,13 +1,15 @@
 import { Injectable } from "@angular/core";
+import { DataService } from "./data.services";
 
 @Injectable({
-	providedIn: 'root'
+    providedIn: 'root'
 })
 export class WebsocketService {
     private subscribers: { [channel: string]: { [event: string]: Function[] } } = {};
     private webSocket!: WebSocket;
     private webSocketConnected = false;
     private registerQueue: string[] = [];
+    private data: DataService = new DataService;
 
     init(port: number = 49322): void {
         this.webSocket = new WebSocket(`ws://localhost:${port}`);
@@ -41,6 +43,55 @@ export class WebsocketService {
             this.triggerSubscribers("ws", "close");
             this.webSocketConnected = false;
         };
+    }
+
+    setup(): void {
+        this.subscribe('game', ['initialized', 'match_destroyed'], () => {
+            this.data.setMatchOverview(false);
+            this.data.setGameAvailable(true);
+        });
+        this.subscribe('game', ['match_ended'], () => {
+            this.data.setGameAvailable(false);
+            //update series wins
+        });
+        this.subscribe('game', ['podium_start'], () => {
+            this.data.setMatchOverview(true);
+        });
+        this.subscribe('game', ['replay_start'], () => {
+            this.data.setReplay(true);
+        });
+        this.subscribe('game', ['replay_end'], () => {
+            this.data.setReplay(false);
+        }); 
+        this.subscribe('game', ['update_state'], (data: any) => {
+            //TODO:
+
+            //SetTeamInformation (1st)
+            //SetPlayerID (1st)
+            //SetTeamScore
+            //SetTeamWins
+            //SetPlayerStats
+            //SetPlayers$
+            //SetGameTime (+ if ot)
+            //SetOvertime
+            //setBoostConsumption
+            //removePlayer
+            console.dir(data);
+        });
+        this.subscribe('game', ['ball_hit'], (data: any) => {
+            //TODO: update ballPossession
+            console.dir(data);
+        });
+        this.subscribe('game', ['statfeed_event'], (data: any) => {
+            //TODO: throw events
+            console.dir(data);
+        });
+        this.subscribe('game', ['goal_scored'], (data: any) => {
+            //TODO: handle goal
+            console.dir(data);
+        });
+        
+        
     }
 
     subscribe(channels: string | string[], events: string[], callback: Function): void {

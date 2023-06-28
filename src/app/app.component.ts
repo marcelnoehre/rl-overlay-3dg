@@ -10,6 +10,7 @@ import { DataService } from './services/data.services';
 
 export class AppComponent implements OnInit {
     gameAvailable: boolean = false;
+    matchOverview: boolean = false;
     replay: boolean = false;
     director: boolean = false;
 
@@ -24,6 +25,9 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         this._data.gameAvailable$.subscribe((gameAvailable: boolean) => {
             this.gameAvailable = gameAvailable;
+        });
+        this._data.matchOverview$.subscribe((matchOverview: boolean) => {
+            this.matchOverview = matchOverview;
         });
         this._data.director$.subscribe((director: boolean) => {
             this.director = director;
