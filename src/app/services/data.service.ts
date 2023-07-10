@@ -3,6 +3,7 @@ import { Team } from "../interfaces/team";
 import { Player } from "../interfaces/player";
 import { Stats } from "../interfaces/stats";
 import { BehaviorSubject, Observable } from "rxjs";
+import { StorageService } from "./storage.service";
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +23,8 @@ export class DataService {
     private teams: Team[] = [];
     private players: Player[] = [];
     private stats!: Stats;
+
+    constructor(private _storage: StorageService) {}
 
     init(): void {
         this.teams.push({
@@ -54,8 +57,9 @@ export class DataService {
         this.teams[team].score = score;
     }
 
-    setTeamWins(team: number) {
-        this.teams[team].wins = this.teams[team].wins++;
+    setTeamWins() {
+        this.teams[0].wins = this._storage.getLocalEntry('team-0');
+        this.teams[1].wins = this._storage.getLocalEntry('team-1');
     }
 
     setTeams(): void {

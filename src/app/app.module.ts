@@ -9,9 +9,10 @@ import { TeamsComponent } from './components/teams/teams.component';
 import { DirectorComponent } from './components/director/director.component';
 import { ReplayComponent } from './components/replay/replay.component';
 
-import { DataService } from './services/data.services';
-import { WebsocketService } from './services/websocket.service';
+import { DataService } from './services/data.service';
 import { EventService } from './services/event.service';
+import { StorageService } from './services/storage.service';
+import { WebsocketService } from './services/websocket.service';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
@@ -29,7 +30,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     AppRoutingModule,
     MatProgressBarModule
   ],
-  providers: [WebsocketService, DataService, EventService],
+  providers: [DataService, EventService, StorageService, WebsocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

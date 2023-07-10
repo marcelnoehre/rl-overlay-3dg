@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core";
-import { DataService } from "./data.services";
+import { DataService } from "./data.service";
 import { EventService } from "./event.service";
+import { StorageService } from "./storage.service";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +15,7 @@ export class WebsocketService {
     private activePlayers: string[] = [];
 
     constructor(
+        private _storage: StorageService,
         private _data: DataService,
         private _event: EventService
         ) {}
@@ -54,6 +56,12 @@ export class WebsocketService {
     }
 
     setup(): void {
+        if(!this._storage.getLocalEntry('hasGame')) {
+            this._storage.clearLocal();
+            this._storage.setLocalEntry('hasGame', true);
+            this._storage.setLocalEntry('team-0', 0);
+            this._storage.setLocalEntry('team-1', 0);
+        }
         this.subscribe('game', ['initialized', 'pre_countdown_begin'], () => {
             this._data.setMatchOverview(false);
             this._data.setGameAvailable(true);
@@ -63,9 +71,11 @@ export class WebsocketService {
             this._data.setGameRunning(false);
             //TODO: removed till matchoverview is finished
             // this._data.setGameAvailable(false);
-            this._data.setTeamWins(data.winner_team_num);
+            this._storage.setLocalEntry('team-' + data.winner_team_num, this._storage.getLocalEntry('team-' + data.winner_team_num) + 1);
+            this._data.setTeamWins();
         });
         this.subscribe('game', ['match_destroyed'], () => {
+            this._storage.clearLocal();
             //TODO: implement reset
         });
         this.subscribe('game', ['podium_start'], () => {
@@ -77,7 +87,6 @@ export class WebsocketService {
         });
         this.subscribe('game', ['replay_end'], () => {
             this._data.setReplay(false);
-            this._data.setGameRunning(true);
         }); 
         this.subscribe('game', ['update_state'], (data: any) => {
             if(!this.setupDone && data.game.teams) {
@@ -101,6 +110,7 @@ export class WebsocketService {
             this._data.setDirector(data.game.hasTarget && !data.game.isReplay);
             this._data.setTeamScore(0, data.game.teams[0].score);
             this._data.setTeamScore(1, data.game.teams[1].score);
+            this._data.setTeamWins();
             this._data.setTeams();
             this._data.setGameTime(data.game.time_seconds);
             this._data.setOvertime(data.game.isOT);
@@ -115,8 +125,6 @@ export class WebsocketService {
         this.subscribe('game', ['goal_scored'], (data: any) => {
             this._event.fireGoalScored(data.scorer.name, data.goalspeed, data.scorer.assister);
         });
-        
-        
     }
 
     subscribe(channels: string | string[], events: string[], callback: Function): void {

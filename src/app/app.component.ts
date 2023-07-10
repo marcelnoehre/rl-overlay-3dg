@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WebsocketService } from './services/websocket.service';
-import { DataService } from './services/data.services';
+import { DataService } from './services/data.service';
 
 @Component({
     selector: 'app-root',

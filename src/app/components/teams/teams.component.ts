@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Player } from 'src/app/interfaces/player';
 import { Team } from 'src/app/interfaces/team';
-import { DataService } from 'src/app/services/data.services';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-teams',
