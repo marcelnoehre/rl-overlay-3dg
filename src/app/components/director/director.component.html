@@ -1,27 +1,27 @@
-<div class="director-container" *ngIf="target.length > 0">
+<div class="director-container" style="--color: {{ teams[target[0].team].color }}">
     <div class="name">
         <p>{{ target[0].name }}</p>
     </div>
     <div class="stats">
         <div>
-            <div>2</div>
-            <div class="caption">&nbsp;{{ target[0].goals }}</div>
+            <div>{{ target[0].goals }}</div>
+            <div class="caption">&nbsp;Goals</div>
         </div>
         <div>
-            <div>1</div>
-            <div class="caption">&nbsp;{{ target[0].assists }}</div>
+            <div>{{ target[0].assists }}</div>
+            <div class="caption">&nbsp;Assists</div>
         </div>
         <div>
-            <div>7</div>
-            <div class="caption">&nbsp;{{ target[0].saves }}</div>
+            <div>{{ target[0].saves }}</div>
+            <div class="caption">&nbsp;Saves</div>
         </div>
         <div>
-            <div>11</div>
-            <div class="caption">&nbsp;{{ target[0].shots }}</div>
+            <div>{{ target[0].shots }}</div>
+            <div class="caption">&nbsp;Shots</div>
         </div>
     </div>
 </div>
-<div class="boost-container"></div>
+<div class="boost-container" style="--boost: {{ targetBoost }}; --color: {{ teams[target[0].team].color }}"></div>
 <div class="inner-boost">
     <div class="boost">{{ target[0].boost }}</div>
 </div>

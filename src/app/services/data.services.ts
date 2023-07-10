@@ -11,7 +11,8 @@ export class DataService {
     private _teams: BehaviorSubject<Team[]> = new BehaviorSubject<Team[]>([]);
     private _players: BehaviorSubject<Player[][]> = new BehaviorSubject<Player[][]>([]);
     private _gametime: BehaviorSubject<string> = new BehaviorSubject<string>('5:00');
-    private _gameAvailable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+    private _gameAvailable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    private _gameRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _matchOverview: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _overtime: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _replay: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -46,6 +47,7 @@ export class DataService {
     setTeamInformation(team: number, name: string, color: string): void {
         this.teams[team].name = name;
         this.teams[team].color = color;
+        this.setGameAvailable(true);
     }
 
     setTeamScore(team: number, score: number) {
@@ -100,6 +102,10 @@ export class DataService {
         this._gameAvailable.next(gameAvailable);
     }
 
+    setGameRunning(gameRunning: boolean): void {
+        this._gameRunning.next(gameRunning);
+    }
+
     setMatchOverview(matchOverview: boolean): void {
         this._matchOverview.next(matchOverview);
     }
@@ -115,6 +121,10 @@ export class DataService {
 
     setReplay(replay: boolean): void {
         this._replay.next(replay);
+    }
+
+    setDirector(director: boolean): void {
+        this._director.next(director);
     }
 
     setBallPossesion(team: number): void {
@@ -139,6 +149,10 @@ export class DataService {
 
     get gameAvailable$(): Observable<boolean> {
         return this._gameAvailable.asObservable();
+    }
+
+    get gameRunning$(): Observable<boolean> {
+        return this._gameRunning.asObservable();
     }
 
     get matchOverview$(): Observable<boolean> {

@@ -16,9 +16,7 @@ export class WebsocketService {
     constructor(
         private _data: DataService,
         private _event: EventService
-        ) {
-
-    }
+        ) {}
 
     init(port: number = 49122): void {
         this.webSocket = new WebSocket(`ws://localhost:${port}`);
@@ -56,22 +54,30 @@ export class WebsocketService {
     }
 
     setup(): void {
-        this.subscribe('game', ['initialized', 'match_destroyed'], () => {
+        this.subscribe('game', ['initialized', 'pre_countdown_begin'], () => {
             this._data.setMatchOverview(false);
             this._data.setGameAvailable(true);
+            this._data.setGameRunning(true);
         });
         this.subscribe('game', ['match_ended'], (data: any) => {
-            this._data.setGameAvailable(false);
+            this._data.setGameRunning(false);
+            //TODO: removed till matchoverview is finished
+            // this._data.setGameAvailable(false);
             this._data.setTeamWins(data.winner_team_num);
+        });
+        this.subscribe('game', ['match_destroyed'], () => {
+            //TODO: implement reset
         });
         this.subscribe('game', ['podium_start'], () => {
             this._data.setMatchOverview(true);
         });
         this.subscribe('game', ['replay_start'], () => {
+            this._data.setGameRunning(false);
             this._data.setReplay(true);
         });
         this.subscribe('game', ['replay_end'], () => {
             this._data.setReplay(false);
+            this._data.setGameRunning(true);
         }); 
         this.subscribe('game', ['update_state'], (data: any) => {
             if(!this.setupDone && data.game.teams) {
@@ -90,8 +96,9 @@ export class WebsocketService {
                         this.activePlayers = this.activePlayers.filter((active) => active !== player);
                     }
                 }
-                this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.hasTarget ? data.game.target === key : false);
+                this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key);
             }
+            this._data.setDirector(data.game.hasTarget && !data.game.isReplay);
             this._data.setTeamScore(0, data.game.teams[0].score);
             this._data.setTeamScore(1, data.game.teams[1].score);
             this._data.setTeams();
