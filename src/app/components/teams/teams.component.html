@@ -2,7 +2,7 @@
     <div class="players">
         <div class="player" *ngFor="let player of players[0]">
             <div class="information">
-                <div class="name">
+                <div class="name" style="--name-size: {{player.name.length > 18 ? 20 - ((player.name.length - 18) / 1.75) + 'px' : '20px'}}">
                     {{ player.name }}
                 </div>
                 <div class="boost">
@@ -19,7 +19,7 @@
     <div class="players">
         <div class="player" *ngFor="let player of players[1]">
             <div class="information">
-                <div class="name">
+                <div class="name" style="--name-size: {{player.name.length > 18 ? 20 - ((player.name.length - 18) / 1.75) + 'px' : '20px'}}">
                     {{ player.name }}
                 </div>
                 <div class="boost">

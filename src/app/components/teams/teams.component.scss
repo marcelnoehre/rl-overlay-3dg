@@ -49,6 +49,10 @@
             }
             .name {
                 width: 85%;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                font-size: var(--name-size) !important;
             }
             .boost {
                 width: 15%;

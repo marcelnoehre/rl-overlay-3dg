@@ -74,12 +74,11 @@
         }
     }
     .team {
-        width: calc(35% + 30px);
+        width: 250px;
         display: flex;
         justify-content: space-between;
         text-align: center;
         color: white;
-        font-size: 50px;
         padding: 0 25px;
         border: 7px solid var(--team-color);
         p {
@@ -88,6 +87,10 @@
             flex-direction: column;
             justify-content: center;
             margin-top: 5px;
+            font-size: var(--name-size);
+            white-space: nowrap;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
         }
     }
     .team-left {

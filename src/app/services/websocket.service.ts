@@ -13,6 +13,7 @@ export class WebsocketService {
     private registerQueue: string[] = [];
     private setupDone: boolean = false;
     private activePlayers: string[] = [];
+    private gameRunning: boolean = false;
 
     constructor(
         private _storage: StorageService,
@@ -52,6 +53,9 @@ export class WebsocketService {
             this.triggerSubscribers("ws", "close");
             this.webSocketConnected = false;
         };
+        this._data.gameRunning$.subscribe((gameRunning: boolean) => {
+            this.gameRunning = gameRunning;
+        });
         this.setup();
     }
 
@@ -74,10 +78,6 @@ export class WebsocketService {
             this._storage.setLocalEntry('team-' + data.winner_team_num, this._storage.getLocalEntry('team-' + data.winner_team_num) + 1);
             this._data.setTeamWins();
         });
-        this.subscribe('game', ['match_destroyed'], () => {
-            this._storage.clearLocal();
-            //TODO: implement reset
-        });
         this.subscribe('game', ['podium_start'], () => {
             this._data.setMatchOverview(true);
         });
@@ -97,7 +97,7 @@ export class WebsocketService {
             for (const key in data.players) {
                 if(!this.activePlayers.includes(key)) {
                     this.activePlayers.push(key);
-                    this._data.setPlayerId(key, data.players[key].name, data.players[key].team);
+                this._data.setPlayerId(key, data.players[key].name, data.players[key].team);
                 }
                 for(const player of this.activePlayers) {
                     if(!data.players.hasOwnProperty(player)) {
@@ -107,6 +107,7 @@ export class WebsocketService {
                 }
                 this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key);
             }
+            if(!this.gameRunning) this._data.setGameRunning( data.game.ball.team !== 255);
             this._data.setDirector(data.game.hasTarget && !data.game.isReplay);
             this._data.setTeamScore(0, data.game.teams[0].score);
             this._data.setTeamScore(1, data.game.teams[1].score);
