@@ -17,6 +17,9 @@ import { StorageService } from './services/storage.service';
 import { WebsocketService } from './services/websocket.service';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSelectModule
   ],
   providers: [DataService, EventService, StorageService, WebsocketService],
   bootstrap: [AppComponent]

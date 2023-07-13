@@ -1,5 +1,103 @@
 .control-panel-container {
     height: 100vh;
     width: 100vw;
+    font-size: 1.5rem;
+    color: white;
     background-color: #10101a;
+}
+
+.header {
+    width: 100%;
+    height: calc(5% - 1px);
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid white;
+    div {
+        display: flex;
+        justify-content: center;
+        height: 100%;
+        .author {
+            color: #FF00FF;
+        }
+    }
+}
+
+.content {
+    height: 95%;
+    .game {
+        height: calc(50% - 2px);
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        border-bottom: 2px solid white;
+    }
+    .teams {
+        height: 50%;
+        width: 100%;
+    }
+}
+
+.series-info {
+    width: calc(100% - 2.5%);
+    display: flex;
+    gap: 1%;
+    padding-left: 2.5%;
+    p {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    input {
+        width: 60%;
+        height: 2rem;
+        background-color: darkgrey;
+        font-size: 1.5rem;
+    }
+}
+
+.series {
+    width: calc(100% - 2.5%);
+    display: flex;
+    flex-direction: column;
+    padding-left: 2.5%;
+    .best-of {
+        display: flex;
+        gap: 1%;
+    }
+    select {
+        font-size: 1.5rem;
+        background-color: darkgray;
+    }
+    .series-score {
+        display: flex;
+        gap: 1%;
+    }
+}
+
+.update {
+    width: calc(100% - 2.5%);
+    display: flex;
+    gap: 2%;
+    padding-left: 2.5%;
+    mat-icon {
+        transform: scale(1.75);
+    }
+}
+
+
+
+:host ::ng-deep {
+    mat-form-field {
+        padding: 0;
+    }
+    .mdc-text-field {
+        padding: 0;
+    }
+}
+
+p {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

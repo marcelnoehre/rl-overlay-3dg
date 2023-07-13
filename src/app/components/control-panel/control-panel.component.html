@@ -1,1 +1,49 @@
-<div class="control-panel-container"></div>
+<div class="control-panel-container">
+    <div class="header">
+        <div><p>&nbsp;&nbsp;Control-Panel</p></div>
+        <div><p>Made by&nbsp;</p><p class="author">s Q e e Z</p>&nbsp;&nbsp;</div>
+    </div>
+    <div class="content">
+        <div class="game">
+            <div class="series-info">
+                <p>Series Info:</p>
+                <input type="text">
+            </div>
+            <div class="series">
+                <div class="best-of">
+                    <p>Best of:</p>
+                    <mat-form-field>
+                        <select matNativeControl>
+                            <option value="3">Bo3</option>
+                            <option value="5">Bo5</option>
+                            <option value="7">Bo7</option>
+                            <option value="9">Bo9</option>
+                        </select>
+                    </mat-form-field>
+                </div>
+                <div class="series-score">
+                    <select matNativeControl>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <p>Team Name Left : Team Name Right</p>
+                    <select matNativeControl>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <div class="update">
+                <button mat-fab style="background-color: lightgreen; color: black"><mat-icon>done</mat-icon></button>
+                <button mat-fab style="background-color: yellow; color: black"><mat-icon>fiber_new</mat-icon></button>
+            </div>
+        </div>
+        <div class="teams"></div>
+    </div>
+</div>
