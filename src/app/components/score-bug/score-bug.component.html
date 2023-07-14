@@ -32,7 +32,7 @@
                 <div class="win" style="--win-bg: {{win ? teams[0].color : '#303f55'}}; --series-length: {{ seriesLength }}"></div>
             </ng-container>
         </div>
-        <div class="match-information">{{ matchInformation }}</div>
+        <div class="match-information">{{ seriesInfo }}</div>
         <div class="wins wins-right">
             <ng-container *ngFor="let win of wins[1]">
                 <div class="win" style="--win-bg: {{win ? teams[1].color : '#303f55'}}; --series-length: {{ seriesLength }}"></div>

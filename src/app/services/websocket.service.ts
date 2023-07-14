@@ -62,6 +62,8 @@ export class WebsocketService {
     setup(): void {
         if(!this._storage.getLocalEntry('hasGame')) {
             this._storage.clearLocal();
+            this._storage.setLocalEntry('series-length', 3);
+            this._storage.setLocalEntry('series-info', '');
             this._storage.setLocalEntry('hasGame', true);
             this._storage.setLocalEntry('team-0', 0);
             this._storage.setLocalEntry('team-1', 0);

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Team } from 'src/app/interfaces/team';
 import { DataService } from 'src/app/services/data.service';
+import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-score-bug',
@@ -13,13 +14,21 @@ export class ScoreBugComponent implements OnInit {
   wins: boolean[][] = [];
   nameSizeLeft: string = '';
   nameSizeRight: string = '';
-  //TODO: read from file
-  seriesLength: number = 3;
-  matchInformation: string = 'Nitro League Division 2.3 - Woche 3';
+  seriesLength: number = this._storage.getLocalEntry('series-length');
+  seriesInfo: string = this._storage.getLocalEntry('series-info');
 
-  constructor(private _data: DataService) {}
+  constructor(
+    private _data: DataService,
+    private _storage: StorageService
+    ) {}
 
   ngOnInit(): void {
+    this._storage.seriesChange$.subscribe((length) => {
+      this.seriesLength = length;
+    });
+    this._storage.seriesInfoChange$.subscribe((info) => {
+      this.seriesInfo = info;
+    });
     this._data.teams$.subscribe((teams: Team[]) => {
       this.teams = teams;
       this.nameSizeLeft = teams[0].name.length <= 10 ? '50px' : `${50 - 4 * (teams[0].name.length - 10)}px`;      
