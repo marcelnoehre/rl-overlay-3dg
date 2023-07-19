@@ -2,6 +2,7 @@ import { Injectable } from "@angular/core";
 import { DataService } from "./data.service";
 import { EventService } from "./event.service";
 import { StorageService } from "./storage.service";
+import { Storage } from "../enums/storage";
 
 @Injectable({
     providedIn: 'root'
@@ -60,13 +61,13 @@ export class WebsocketService {
     }
 
     setup(): void {
-        if(!this._storage.getLocalEntry('hasGame')) {
+        if(!this._storage.getLocalEntry(Storage.HAS_GAME)) {
             this._storage.clearLocal();
-            this._storage.setLocalEntry('series-length', 3);
-            this._storage.setLocalEntry('series-info', '');
-            this._storage.setLocalEntry('hasGame', true);
-            this._storage.setLocalEntry('team-0', 0);
-            this._storage.setLocalEntry('team-1', 0);
+            this._storage.setLocalEntry(Storage.SERIES_LENGTH, 3);
+            this._storage.setLocalEntry(Storage.SERIES_INFO, '');
+            this._storage.setLocalEntry(Storage.HAS_GAME, true);
+            this._storage.setLocalEntry(Storage.TEAM_LEFT, 0);
+            this._storage.setLocalEntry(Storage.TEAM_RIGHT, 0);
         }
         this.subscribe('game', ['initialized', 'pre_countdown_begin'], () => {
             this._data.setMatchOverview(false);

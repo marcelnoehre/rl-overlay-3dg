@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from 'src/app/enums/storage';
 import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -8,10 +9,10 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent implements OnInit {
-  seriesInfo: string = this._storage.getLocalEntry('series-info');
-  seriesLength: number = this._storage.getLocalEntry('series-length');
-  seriesLeft: number = this._storage.getLocalEntry('team-0');
-  seriesRight: number = this._storage.getLocalEntry('team-1');
+  seriesInfo: string = this._storage.getLocalEntry(Storage.SERIES_INFO);
+  seriesLength: number = this._storage.getLocalEntry(Storage.SERIES_INFO);
+  seriesLeft: number = this._storage.getLocalEntry(Storage.TEAM_LEFT);
+  seriesRight: number = this._storage.getLocalEntry(Storage.TEAM_RIGHT);
   names: string[] = ['TBA', 'TBA'];
 
   constructor(
@@ -27,15 +28,15 @@ export class ControlPanelComponent implements OnInit {
   }
 
   updateSeries(): void {
-    this._storage.setLocalEntry('series-length', this.seriesLength);
-    this._storage.setLocalEntry('series-info', this.seriesInfo);
-    this._storage.setLocalEntry('team-0', this.seriesLeft);
-    this._storage.setLocalEntry('team-1', this.seriesRight);
+    this._storage.setLocalEntry(Storage.SERIES_LENGTH, this.seriesLength);
+    this._storage.setLocalEntry(Storage.SERIES_INFO, this.seriesInfo);
+    this._storage.setLocalEntry(Storage.TEAM_LEFT, this.seriesLeft);
+    this._storage.setLocalEntry(Storage.TEAM_RIGHT, this.seriesRight);
   }
 
   resetSeries(): void {
-    this._storage.setLocalEntry('team-0', 0);
-    this._storage.setLocalEntry('team-1', 0);
+    this._storage.setLocalEntry(Storage.TEAM_LEFT, 0);
+    this._storage.setLocalEntry(Storage.TEAM_RIGHT, 0);
     this.seriesLeft = 0;
     this.seriesRight = 0;
   }

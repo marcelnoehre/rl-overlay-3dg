@@ -4,6 +4,7 @@ import { Player } from "../interfaces/player";
 import { Stats } from "../interfaces/stats";
 import { BehaviorSubject, Observable } from "rxjs";
 import { StorageService } from "./storage.service";
+import { Storage } from "../enums/storage";
 
 @Injectable({
     providedIn: 'root'
@@ -58,8 +59,8 @@ export class DataService {
     }
 
     setTeamWins() {
-        this.teams[0].wins = this._storage.getLocalEntry('team-0');
-        this.teams[1].wins = this._storage.getLocalEntry('team-1');
+        this.teams[0].wins = this._storage.getLocalEntry(Storage.TEAM_LEFT);
+        this.teams[1].wins = this._storage.getLocalEntry(Storage.TEAM_RIGHT);
     }
 
     setTeams(): void {

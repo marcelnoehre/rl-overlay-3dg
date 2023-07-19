@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Storage } from 'src/app/enums/storage';
 import { Team } from 'src/app/interfaces/team';
 import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -14,8 +15,8 @@ export class ScoreBugComponent implements OnInit {
   wins: boolean[][] = [];
   nameSizeLeft: string = '';
   nameSizeRight: string = '';
-  seriesLength: number = this._storage.getLocalEntry('series-length');
-  seriesInfo: string = this._storage.getLocalEntry('series-info');
+  seriesLength: number = this._storage.getLocalEntry(Storage.SERIES_LENGTH);
+  seriesInfo: string = this._storage.getLocalEntry(Storage.SERIES_INFO);
 
   constructor(
     private _data: DataService,
