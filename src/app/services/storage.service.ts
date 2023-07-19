@@ -18,6 +18,10 @@ export class StorageService {
 		return JSON.parse(localStorage.getItem(key)!);
 	}
 
+	public deleteLocalEntry(key: string): void {
+		localStorage.removeItem(key);
+	}
+
 	public clearLocal(): void {
 		localStorage.clear();
 	}

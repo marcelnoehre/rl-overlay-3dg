@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Storage } from 'src/app/enums/storage';
 import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
@@ -10,9 +11,11 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class ControlPanelComponent implements OnInit {
   seriesInfo: string = this._storage.getLocalEntry(Storage.SERIES_INFO);
-  seriesLength: number = this._storage.getLocalEntry(Storage.SERIES_INFO);
+  seriesLength: number = this._storage.getLocalEntry(Storage.SERIES_LENGTH);
   seriesLeft: number = this._storage.getLocalEntry(Storage.TEAM_LEFT);
   seriesRight: number = this._storage.getLocalEntry(Storage.TEAM_RIGHT);
+  logoLeft: SafeUrl = this._storage.getLocalEntry(Storage.LOGO_LEFT);
+  logoRight: SafeUrl = this._storage.getLocalEntry(Storage.LOGO_RIGHT);
   names: string[] = ['TBA', 'TBA'];
 
   constructor(
@@ -27,6 +30,21 @@ export class ControlPanelComponent implements OnInit {
     });
   }
 
+  onFileSelected(event: Event, team: number) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length) {
+      const file = input.files[0];
+      if(file.type.startsWith("image/")) {
+        const reader = new FileReader;
+        reader.onload = (e) => {
+          this._storage.setLocalEntry('logo-' + team, e.target?.result as string);
+          this.updateLogos();
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
   updateSeries(): void {
     this._storage.setLocalEntry(Storage.SERIES_LENGTH, this.seriesLength);
     this._storage.setLocalEntry(Storage.SERIES_INFO, this.seriesInfo);
@@ -39,5 +57,23 @@ export class ControlPanelComponent implements OnInit {
     this._storage.setLocalEntry(Storage.TEAM_RIGHT, 0);
     this.seriesLeft = 0;
     this.seriesRight = 0;
+  }
+
+  updateTeams(): void {
+
+  }
+
+  clearTeams(): void {
+
+  }
+
+  removeLogo(team: number): void {
+    this._storage.deleteLocalEntry('logo-' + team);
+    this.updateLogos();
+  }
+
+  private updateLogos(): void {
+    this.logoLeft = this._storage.getLocalEntry(Storage.LOGO_LEFT);
+    this.logoRight = this._storage.getLocalEntry(Storage.LOGO_RIGHT);
   }
 }

@@ -45,6 +45,34 @@
                 <button mat-fab style="background-color: yellow; color: black" (click)="resetSeries()"><mat-icon>fiber_new</mat-icon></button>
             </div>
         </div>
-        <div class="teams"></div>
+        <div class="teams">
+            <div class="update">
+                <button mat-fab style="background-color: lightgreen; color: black" (click)="updateTeams()"><mat-icon>done</mat-icon></button>
+                <button mat-fab style="background-color: salmon; color: black" (click)="clearTeams()"><mat-icon>delete</mat-icon></button>
+            </div>
+            <div class="teams-info">
+
+            </div>
+            <div class="logo-upload">
+                <div class="logo logo-left">
+                    <input type="file" (change)="onFileSelected($event, 0)" *ngIf="logoLeft === null">
+                    <div class="preview" *ngIf="logoLeft !== null">
+                        <img [src]="logoLeft">
+                        <div>
+                            <button mat-fab style="background-color: salmon; color: black" (click)="removeLogo(0)"><mat-icon>delete</mat-icon></button>  
+                        </div>
+                    </div>
+                </div>
+                <div class="logo logo-right">
+                    <input type="file" (change)="onFileSelected($event, 1)" *ngIf="logoRight === null">
+                    <div class="preview" *ngIf="logoRight !== null">
+                        <div>
+                            <button mat-fab style="background-color: salmon; color: black" (click)="removeLogo(1)"><mat-icon>delete</mat-icon></button>  
+                        </div>
+                        <img [src]="logoRight">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

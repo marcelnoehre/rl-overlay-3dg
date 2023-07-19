@@ -25,7 +25,7 @@
 .content {
     height: 95%;
     .game {
-        height: calc(50% - 2px);
+        height: calc(40% - 2px);
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -33,8 +33,11 @@
         border-bottom: 2px solid white;
     }
     .teams {
-        height: 50%;
+        height: 60%;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
     }
 }
 
@@ -82,6 +85,43 @@
     padding-left: 2.5%;
     mat-icon {
         transform: scale(1.75);
+    }
+}
+
+.teams-info {
+    height: 30%;
+    width: 100%;
+}
+
+.logo-upload {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    .logo {
+        height: 100%;
+        width: 40%;
+        background: transparent;
+        border: 2px dashed white;
+        display: flex;
+        justify-content: center;
+    }
+    .logo > * {
+        width: 100%;
+        height: 100%;
+    }
+
+    .preview {
+        display: flex;
+        justify-content: space-evenly;
+        mat-icon {
+            transform: scale(1.75);
+        }
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
     }
 }
 
