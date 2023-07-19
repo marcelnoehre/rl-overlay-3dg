@@ -46,11 +46,17 @@ export class DataService {
             ballPosession: [0, 0],
             boostConsumption: [0, 0]
         }
+        this._storage.setLocalEntry(Storage.TEAMS, this.teams);
+        this._storage.teamsChange$.subscribe((teams) => {
+            this.teams = teams;
+            this.setTeams();
+        });
     }
 
     setTeamInformation(team: number, name: string, color: string): void {
         this.teams[team].name = name;
         this.teams[team].color = color;
+        this._storage.setLocalEntry(Storage.TEAMS, this.teams);
         this.setGameAvailable(true);
     }
 
@@ -59,8 +65,8 @@ export class DataService {
     }
 
     setTeamWins() {
-        this.teams[0].wins = this._storage.getLocalEntry(Storage.TEAM_LEFT);
-        this.teams[1].wins = this._storage.getLocalEntry(Storage.TEAM_RIGHT);
+        this.teams[0].wins = this._storage.getLocalEntry(Storage.SERIES_LEFT);
+        this.teams[1].wins = this._storage.getLocalEntry(Storage.SERIES_RIGHT);
     }
 
     setTeams(): void {

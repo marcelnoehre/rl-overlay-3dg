@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { DataService } from 'src/app/services/data.service';
+import { StorageService } from 'src/app/services/storage.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
@@ -13,10 +14,12 @@ export class GameCaptureComponent {
   matchOverview: boolean = false;
   replay: boolean = false;
   director: boolean = false;
+  showDirector: boolean = true;
 
   constructor(
       private _ws: WebsocketService,
-      private _data: DataService
+      private _data: DataService,
+      private _storage: StorageService
       ) {
           _ws.init(49322);
           _data.init();
@@ -38,6 +41,9 @@ export class GameCaptureComponent {
       });
       this._data.replay$.subscribe((replay: boolean) => {
           this.replay = replay;
+      });
+      this._storage.directorChange$.subscribe((showDirector) => {
+        this.showDirector = showDirector;
       });
   }
 }

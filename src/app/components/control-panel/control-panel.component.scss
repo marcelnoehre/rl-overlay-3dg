@@ -81,16 +81,30 @@
 .update {
     width: calc(100% - 2.5%);
     display: flex;
-    gap: 2%;
+    align-items: center;
+    gap: 2%; 
     padding-left: 2.5%;
     mat-icon {
         transform: scale(1.75);
     }
 }
 
-.teams-info {
-    height: 30%;
+.teams-name {
     width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    > div {
+        height: 100%;
+        width: calc(40% + 4px);
+        display: flex;
+        justify-content: left;
+    }
+    input {
+        height: 2rem;
+        width: 70%;
+        background-color: darkgrey;
+        font-size: 1.5rem;
+    }
 }
 
 .logo-upload {
@@ -125,14 +139,18 @@
     }
 }
 
-
-
 :host ::ng-deep {
     mat-form-field {
         padding: 0;
     }
     .mdc-text-field {
         padding: 0;
+    }
+    mat-slide-toggle {
+        scale: 1.5;
+    }
+    .mdc-form-field>label {
+        color: white;
     }
 }
 

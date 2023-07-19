@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { StorageService } from './services/storage.service';
 
 @Component({
     selector: 'app-root',
@@ -6,6 +7,13 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnDestroy {
     title = 'rl-overlay-3dg'
+
+    constructor(private _storage: StorageService) {}
+    
+    ngOnDestroy(): void {
+        this._storage.clearLocal();
+    }
+
 }

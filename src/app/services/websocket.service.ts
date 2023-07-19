@@ -66,8 +66,9 @@ export class WebsocketService {
             this._storage.setLocalEntry(Storage.SERIES_LENGTH, 3);
             this._storage.setLocalEntry(Storage.SERIES_INFO, '');
             this._storage.setLocalEntry(Storage.HAS_GAME, true);
-            this._storage.setLocalEntry(Storage.TEAM_LEFT, 0);
-            this._storage.setLocalEntry(Storage.TEAM_RIGHT, 0);
+            this._storage.setLocalEntry(Storage.DIRECTOR, true);
+            this._storage.setLocalEntry(Storage.SERIES_LEFT, 0);
+            this._storage.setLocalEntry(Storage.SERIES_RIGHT, 0);
         }
         this.subscribe('game', ['initialized', 'pre_countdown_begin'], () => {
             this._data.setMatchOverview(false);
@@ -78,7 +79,7 @@ export class WebsocketService {
             this._data.setGameRunning(false);
             //TODO: removed till matchoverview is finished
             // this._data.setGameAvailable(false);
-            this._storage.setLocalEntry('team-' + data.winner_team_num, this._storage.getLocalEntry('team-' + data.winner_team_num) + 1);
+            this._storage.setLocalEntry('series-' + data.winner_team_num, this._storage.getLocalEntry('series-' + data.winner_team_num) + 1);
             this._data.setTeamWins();
         });
         this.subscribe('game', ['podium_start'], () => {
