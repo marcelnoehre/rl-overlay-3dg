@@ -54,6 +54,24 @@
             padding-bottom: 10px;
         }
     }
+    .overtime {
+        .overtime-label {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: red;
+            height: 20%;
+            font-size: 14px;
+        }
+        p {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 80%;
+            font-size: 45px;
+            padding-bottom: 0;
+        }
+    }
     .score {
         z-index: 5;
         height: 100%;
@@ -74,7 +92,7 @@
         }
     }
     .team {
-        width: 250px;
+        width: 310px;
         display: flex;
         justify-content: space-between;
         text-align: center;

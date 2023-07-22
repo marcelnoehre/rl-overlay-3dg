@@ -107,6 +107,7 @@ export class ControlPanelComponent implements OnInit {
 
   removeLogo(team: number): void {
     this._storage.deleteLocalEntry('logo-' + team);
+    this.updateLogos();
   }
 
   private updateLogos(): void {

@@ -53,6 +53,17 @@ export class DataService {
         });
     }
 
+    resetMatch(): void {
+        this.mapping = {};
+        this.players = [];
+        this.stats = {
+            ballPosession: [0, 0],
+            boostConsumption: [0, 0]
+        }
+        this.setPlayers();
+        //TODO: reset gameoverview attributes
+    }
+
     setTeamInformation(team: number, name: string, color: string): void {
         this.teams[team].name = name;
         this.teams[team].color = color;

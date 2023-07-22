@@ -75,6 +75,9 @@ export class WebsocketService {
             this._data.setGameAvailable(true);
             this._data.setGameRunning(true);
         });
+        this.subscribe('game', ['match_destroyed'], (data: any) => {
+            this._data.resetMatch();
+        });
         this.subscribe('game', ['match_ended'], (data: any) => {
             this._data.setGameRunning(false);
             //TODO: removed till matchoverview is finished

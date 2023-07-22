@@ -11,6 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class ScoreBugComponent implements OnInit {
   teams: Team[] = [];
+  isOvertime: boolean = false;
   gameTime: string = '';
   wins: boolean[][] = [];
   nameSizeLeft: string = '';
@@ -30,10 +31,13 @@ export class ScoreBugComponent implements OnInit {
     this._storage.seriesInfoChange$.subscribe((info) => {
       this.seriesInfo = info;
     });
+    this._data.overtime$.subscribe((isOvertime) => {
+      this.isOvertime = isOvertime;
+    });
     this._data.teams$.subscribe((teams: Team[]) => {
       this.teams = teams;
-      this.nameSizeLeft = teams[0].name.length <= 10 ? '50px' : `${50 - 4 * (teams[0].name.length - 10)}px`;      
-      this.nameSizeRight = teams[1].name.length <= 10 ? '50px' : `${50 - 4 * (teams[1].name.length - 10)}px`;   
+      this.nameSizeLeft = teams[0].name.length <= 10 ? '50px' : `${50 - 4 * (teams[0].name.length - 10)}px`;
+      this.nameSizeRight = teams[1].name.length <= 10 ? '50px' : `${50 - 4 * (teams[1].name.length - 10)}px`;
       this.wins = [
         Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[0].wins),
         Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[1].wins)

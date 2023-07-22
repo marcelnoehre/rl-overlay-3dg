@@ -49,7 +49,7 @@
             <div class="update">
                 <button mat-fab style="background-color: lightgreen; color: black" (click)="updateTeams()"><mat-icon>done</mat-icon></button>
                 <button mat-fab style="background-color: salmon; color: black" (click)="clearTeams()"><mat-icon>delete</mat-icon></button>
-                <mat-slide-toggle color="basic" style="padding-left: 5%;" [(ngModel)]="showDirector" (change)="toggleDirector($event)">Director</mat-slide-toggle>
+                <mat-slide-toggle color="basic" style="padding-left: 5%;" [(ngModel)]="showDirector" (change)="toggleDirector($event)">Show custom director</mat-slide-toggle>
                 <mat-slide-toggle color="basic" style="padding-left: 7.5%;" [(ngModel)]="defaultColors" (change)="toggleDefaultColors($event)">Force default colors</mat-slide-toggle>
             </div>
             <div class="teams-name">
