@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from 'src/app/enums/storage';
 import { Team } from 'src/app/interfaces/team';
+import { AdminService } from 'src/app/services/admin.service';
 import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
 
@@ -20,16 +21,17 @@ export class ScoreBugComponent implements OnInit {
   seriesInfo: string = this._storage.getLocalEntry(Storage.SERIES_INFO);
 
   constructor(
+    private _admin: AdminService,
     private _data: DataService,
     private _storage: StorageService
     ) {}
 
   ngOnInit(): void {
-    this._storage.seriesChange$.subscribe((length) => {
-      this.seriesLength = length;
+    this._admin.seriesInfo$.subscribe((seriesInfo) => {
+      this.seriesInfo = seriesInfo;
     });
-    this._storage.seriesInfoChange$.subscribe((info) => {
-      this.seriesInfo = info;
+    this._admin.seriesLength$.subscribe((seriesLength) => {
+      this.seriesLength = seriesLength;
     });
     this._data.overtime$.subscribe((isOvertime) => {
       this.isOvertime = isOvertime;

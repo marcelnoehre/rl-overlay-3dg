@@ -3,6 +3,7 @@ import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { SafeUrl } from '@angular/platform-browser';
 import { Storage } from 'src/app/enums/storage';
 import { Team } from 'src/app/interfaces/team';
+import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -22,31 +23,13 @@ export class ControlPanelComponent implements OnInit {
   defaultColors: boolean = this._storage.getLocalEntry(Storage.DEFAULT_COLORS);
 
   constructor(
-    private _storage: StorageService
+    private _storage: StorageService,
+    private _data: DataService
   ) {}
 
   ngOnInit(): void {
-    this._storage.directorChange$.subscribe((showDirector) => {
-      this.showDirector = showDirector;
-    });
-    this._storage.teamsChange$.subscribe((teams) => {
+    this._data.teams$.subscribe((teams) => {
       this.teams = teams;
-      if(this.teams.length === 0) {
-        this.teams.push({
-          name: '',
-          color: '',
-          score: 0,
-          wins: 0,
-          players: []
-      });
-      this.teams.push({
-          name: '',
-          color: '',
-          score: 0,
-          wins: 0,
-          players: []
-      });
-      }
     });
   }
 

@@ -8,5 +8,9 @@ export enum Storage {
     SERIES_LENGTH = 'series-length',
     SERIES_INFO = 'series-info',
     DIRECTOR = 'director',
-    DEFAULT_COLORS = 'default-colors'
+    SHOW_DIRECTOR = 'show-director',
+    FORCE_DEFAULT_COLORS = 'force-default-colors',
+    DEFAULT_COLORS = 'default-colors',
+    NAME_CHANGE = 'name-change',
+    CHANGE = 'change'
 }

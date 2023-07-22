@@ -5,6 +5,7 @@ import { Stats } from "../interfaces/stats";
 import { BehaviorSubject, Observable } from "rxjs";
 import { StorageService } from "./storage.service";
 import { Storage } from "../enums/storage";
+import { AdminService } from "./admin.service";
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +26,10 @@ export class DataService {
     private players: Player[] = [];
     private stats!: Stats;
 
-    constructor(private _storage: StorageService) {}
+    constructor(
+        private _storage: StorageService,
+        private _admin: AdminService
+        ) {}
 
     init(): void {
         this.teams.push({
@@ -47,8 +51,11 @@ export class DataService {
             boostConsumption: [0, 0]
         }
         this._storage.setLocalEntry(Storage.TEAMS, this.teams);
-        this._storage.teamsChange$.subscribe((teams) => {
-            this.teams = teams;
+        this._admin.nameChange$.subscribe((teams) => {
+            if(teams.length > 0) {
+                this.teams[0].name = teams[0];
+                this.teams[1].name = teams[1];
+            }
             this.setTeams();
         });
     }
