@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AdminService } from 'src/app/services/admin.service';
 import { DataService } from 'src/app/services/data.service';
-import { StorageService } from 'src/app/services/storage.service';
 import { WebsocketService } from 'src/app/services/websocket.service';
 
 @Component({
@@ -21,7 +20,6 @@ export class GameCaptureComponent {
       private _ws: WebsocketService,
       private _admin: AdminService,
       private _data: DataService,
-      private _storage: StorageService
       ) {
           _ws.init(49322);
           _data.init();
@@ -44,6 +42,7 @@ export class GameCaptureComponent {
       this._data.replay$.subscribe((replay: boolean) => {
           this.replay = replay;
       });
+      this._admin.setup();
       this._admin.showDirector$.subscribe((showDirector) => {
         this.showDirector = showDirector;
       });

@@ -51,10 +51,9 @@ export class DataService {
             boostConsumption: [0, 0]
         }
         this._storage.setLocalEntry(Storage.TEAMS, this.teams);
-        this._admin.nameChange$.subscribe((teams) => {
+        this._admin.teams$.subscribe((teams) => {
             if(teams.length > 0) {
-                this.teams[0].name = teams[0];
-                this.teams[1].name = teams[1];
+                this.teams = teams;
             }
             this.setTeams();
         });

@@ -5,7 +5,7 @@
 <div class="score-bug-container">
     <div class="score-bug">
         <div class="logo logo-left">
-            <img src="assets/images/team-left.png">
+            <img [src]="logoLeft">
         </div>
         <div class="team team-left" style="--name-size: {{nameSizeLeft}}; --team-color: {{teams[0].color}}">
             <p>{{ teams[0].name }}</p>
@@ -24,7 +24,7 @@
             <p>{{ teams[1].name }}</p>
         </div>
         <div class="logo logo-right">
-            <img src="assets/images/team-right.png">
+            <img [src]="logoRight">
         </div>
     </div>
     <div class="series">

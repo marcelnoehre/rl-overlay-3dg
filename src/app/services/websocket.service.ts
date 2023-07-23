@@ -61,15 +61,20 @@ export class WebsocketService {
     }
 
     setup(): void {
-        if(!this._storage.getLocalEntry(Storage.HAS_GAME)) {
-            this._storage.clearLocal();
-            this._storage.setLocalEntry(Storage.SERIES_LENGTH, 3);
-            this._storage.setLocalEntry(Storage.SERIES_INFO, '');
-            this._storage.setLocalEntry(Storage.HAS_GAME, true);
-            this._storage.setLocalEntry(Storage.DIRECTOR, true);
-            this._storage.setLocalEntry(Storage.SERIES_LEFT, 0);
-            this._storage.setLocalEntry(Storage.SERIES_RIGHT, 0);
-        }
+        this._storage.clearLocal();
+        this._storage.setLocalEntry(Storage.TEAMS, []);
+        this._storage.setLocalEntry(Storage.SERIES_LENGTH, 3);
+        this._storage.setLocalEntry(Storage.SERIES_INFO, '');
+        this._storage.setLocalEntry(Storage.HAS_GAME, true);
+        this._storage.setLocalEntry(Storage.DIRECTOR, false);
+        this._storage.setLocalEntry(Storage.SERIES_LEFT, 0);
+        this._storage.setLocalEntry(Storage.LOGO_LEFT, 'assets/images/default-logo-0.png');
+        this._storage.setLocalEntry(Storage.SERIES_RIGHT, 0);
+        this._storage.setLocalEntry(Storage.LOGO_RIGHT, 'assets/images/default-logo-1.png');
+        this._storage.setLocalEntry(Storage.SHOW_DIRECTOR, true);
+        this._storage.setLocalEntry(Storage.FORCE_DEFAULT_COLORS, false);
+        this._storage.setLocalEntry(Storage.CHANGE, false);
+
         this.subscribe('game', ['initialized', 'pre_countdown_begin'], () => {
             this._data.setMatchOverview(false);
             this._data.setGameAvailable(true);

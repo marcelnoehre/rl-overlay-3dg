@@ -10,7 +10,5 @@ export enum Storage {
     DIRECTOR = 'director',
     SHOW_DIRECTOR = 'show-director',
     FORCE_DEFAULT_COLORS = 'force-default-colors',
-    DEFAULT_COLORS = 'default-colors',
-    NAME_CHANGE = 'name-change',
     CHANGE = 'change'
 }

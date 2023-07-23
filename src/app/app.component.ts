@@ -13,7 +13,6 @@ export class AppComponent implements OnDestroy {
 
     constructor(
         private _storage: StorageService,
-        private _admin: AdminService
         ) {}
     
     ngOnDestroy(): void {

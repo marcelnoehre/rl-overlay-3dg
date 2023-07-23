@@ -19,6 +19,8 @@ export class ScoreBugComponent implements OnInit {
   nameSizeRight: string = '';
   seriesLength: number = this._storage.getLocalEntry(Storage.SERIES_LENGTH);
   seriesInfo: string = this._storage.getLocalEntry(Storage.SERIES_INFO);
+  logoLeft: string = this._storage.getLocalEntry(Storage.LOGO_LEFT);
+  logoRight: string = this._storage.getLocalEntry(Storage.LOGO_RIGHT);
 
   constructor(
     private _admin: AdminService,
@@ -32,6 +34,12 @@ export class ScoreBugComponent implements OnInit {
     });
     this._admin.seriesLength$.subscribe((seriesLength) => {
       this.seriesLength = seriesLength;
+    });
+    this._admin.logoLeft$.subscribe((logoLeft) => {
+      this.logoLeft = logoLeft;
+    });
+    this._admin.logoRight$.subscribe((logoRight) => {
+      this.logoRight = logoRight;
     });
     this._data.overtime$.subscribe((isOvertime) => {
       this.isOvertime = isOvertime;
