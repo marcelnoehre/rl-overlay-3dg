@@ -1,4 +1,4 @@
-<div class="director-container" style="--color: {{ teams[target[0].team].color }}">
+<div class="director-container" style="--color: {{ activeColor }}">
     <div class="name">
         <p>{{ target[0].name }}</p>
     </div>
@@ -21,7 +21,7 @@
         </div>
     </div>
 </div>
-<div class="boost-container" style="--boost: {{ targetBoost }}; --color: {{ teams[target[0].team].color }}"></div>
+<div class="boost-container" style="--boost: {{ targetBoost }}; --color: {{ activeColor }}"></div>
 <div class="inner-boost">
     <div class="boost">{{ target[0].boost }}</div>
 </div>

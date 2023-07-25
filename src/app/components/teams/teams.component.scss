@@ -27,6 +27,9 @@
     background: linear-gradient(to bottom right, #303f55, #202020);
     .players {
         transform: skew(10deg);
+        .name {
+            text-align: right;
+        }
     }
 }
 

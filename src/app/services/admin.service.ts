@@ -42,7 +42,7 @@ export class AdminService implements OnDestroy {
             this._seriesLength.next(this._storage.getLocalEntry(Storage.SERIES_LENGTH));
             this._teams.next(this._storage.getLocalEntry(Storage.TEAMS));
             this._showDirector.next(this._storage.getLocalEntry(Storage.SHOW_DIRECTOR));
-            this._forceDefaultColors.next(this._storage.getLocalEntry(Storage.SHOW_DIRECTOR));
+            this._forceDefaultColors.next(this._storage.getLocalEntry(Storage.FORCE_DEFAULT_COLORS));
             this._logoLeft.next(this._storage.getLocalEntry(Storage.LOGO_LEFT));
             this._logoRight.next(this._storage.getLocalEntry(Storage.LOGO_RIGHT));
             this._storage.setLocalEntry(Storage.CHANGE, false);

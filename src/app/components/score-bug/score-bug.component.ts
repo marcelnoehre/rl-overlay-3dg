@@ -17,6 +17,7 @@ export class ScoreBugComponent implements OnInit {
   wins: boolean[][] = [];
   nameSizeLeft: string = '';
   nameSizeRight: string = '';
+  forceDefaultColors: boolean = this._storage.getLocalEntry(Storage.FORCE_DEFAULT_COLORS);
   seriesLength: number = this._storage.getLocalEntry(Storage.SERIES_LENGTH);
   seriesInfo: string = this._storage.getLocalEntry(Storage.SERIES_INFO);
   logoLeft: string = this._storage.getLocalEntry(Storage.LOGO_LEFT);
@@ -40,6 +41,9 @@ export class ScoreBugComponent implements OnInit {
     });
     this._admin.logoRight$.subscribe((logoRight) => {
       this.logoRight = logoRight;
+    });
+    this._admin.forceDefaultColors$.subscribe((forceDefaultColors) => {
+      this.forceDefaultColors = forceDefaultColors;
     });
     this._data.overtime$.subscribe((isOvertime) => {
       this.isOvertime = isOvertime;

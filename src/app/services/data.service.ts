@@ -87,6 +87,8 @@ export class DataService {
     }
 
     setTeams(): void {
+        this._storage.setLocalEntry(Storage.TEAMS, this.teams);
+        this._storage.setLocalEntry(Storage.CHANGE, true);
         this._teams.next(this.teams);
     }
 

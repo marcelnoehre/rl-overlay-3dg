@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="boostbar">
-                <mat-progress-bar [value]="player.boost" style="--slider-color: {{teams[player.team].color}}"></mat-progress-bar>
+                <mat-progress-bar [value]="player.boost" style="--slider-color: {{forceDefaultColors ? '#1873FF' : teams[player.team].color}}"></mat-progress-bar>
             </div>
         </div>
     </div>
@@ -19,15 +19,15 @@
     <div class="players">
         <div class="player" *ngFor="let player of players[1]">
             <div class="information">
-                <div class="name" style="--name-size: {{player.name.length > 18 ? 20 - ((player.name.length - 18) / 1.75) + 'px' : '20px'}}">
-                    {{ player.name }}
-                </div>
                 <div class="boost">
                     {{ player.boost }}
                 </div>
+                <div class="name" style="--name-size: {{player.name.length > 18 ? 20 - ((player.name.length - 18) / 1.75) + 'px' : '20px'}}">
+                    {{ player.name }}
+                </div>
             </div>
             <div class="boostbar">
-                <mat-progress-bar [value]="player.boost" style="--slider-color: {{teams[player.team].color}}"></mat-progress-bar>
+                <mat-progress-bar [value]="player.boost" style="--slider-color: {{forceDefaultColors ? '#C26418' : teams[player.team].color}}; transform: scale(-1);"></mat-progress-bar>
             </div>
         </div>
     </div>

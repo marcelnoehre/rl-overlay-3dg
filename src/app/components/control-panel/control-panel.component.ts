@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { SafeUrl } from '@angular/platform-browser';
 import { Storage } from 'src/app/enums/storage';
 import { Team } from 'src/app/interfaces/team';
 import { AdminService } from 'src/app/services/admin.service';
-import { DataService } from 'src/app/services/data.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -25,7 +24,7 @@ export class ControlPanelComponent implements OnInit {
 
   constructor(
     private _storage: StorageService,
-    private sanitizer: DomSanitizer
+    private _admin: AdminService
   ) {}
 
   ngOnInit(): void {
@@ -44,6 +43,9 @@ export class ControlPanelComponent implements OnInit {
         players: []
       }];
     }
+    this._admin.teams$.subscribe((teams) => {
+      this.teams = teams;
+    });
   }
 
   onFileSelected(event: Event, team: number) {
@@ -89,8 +91,7 @@ export class ControlPanelComponent implements OnInit {
 
   updateTeams(): void {
     this._storage.setLocalEntry(Storage.TEAMS, this.teams);
-    this._storage.setLocalEntry(Storage.DIRECTOR, this.showDirector);
-    this._storage.setLocalEntry(Storage.FORCE_DEFAULT_COLORS, this.defaultColors);
+    this._storage.setLocalEntry(Storage.SHOW_DIRECTOR, this.showDirector);
     this._storage.setLocalEntry(Storage.LOGO_LEFT, this.logoLeft);
     this._storage.setLocalEntry(Storage.LOGO_RIGHT, this.logoRight);
     this._storage.setLocalEntry(Storage.FORCE_DEFAULT_COLORS, this.defaultColors);
