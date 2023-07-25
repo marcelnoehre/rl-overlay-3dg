@@ -137,7 +137,7 @@ export class WebsocketService {
             //TODO: throw events
         });
         this.subscribe('game', ['goal_scored'], (data: any) => {
-            this._event.fireGoalScored(data.scorer.name, data.goalspeed, data.scorer.assister);
+            this._event.fireGoalScored(data.scorer.name, data.goalspeed, data.scorer.teamnum, data.scorer.assister);
         });
     }
 

@@ -39,7 +39,6 @@ export class DirectorComponent implements OnInit {
     this._admin.forceDefaultColors$.subscribe((forceDefaultColors) => {
       this.forceDefaultColors = forceDefaultColors;
     });
-
   }
 
   get activeColor(): string {

@@ -1,5 +1,6 @@
 export interface Goal {
     scorer: string,
     assistant?: string,
-    speed: string
+    speed: string,
+    team: number
 }

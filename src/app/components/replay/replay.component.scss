@@ -8,8 +8,8 @@
     background: linear-gradient(to bottom left, #303f55, #202020);
     color: white;
     font-size: 25px;
-    border-top: 5px solid orange;
-    border-right: 5px solid orange;
+    border-top: 5px solid var(--team-color);
+    border-right: 5px solid var(--team-color);
 }
 
 .label {
