@@ -12,6 +12,8 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class ScoreBugComponent implements OnInit {
   teams: Team[] = [];
+  nameLeft: string = '';
+  nameRight: string = '';
   isOvertime: boolean = false;
   gameTime: string = '';
   wins: boolean[][] = [];
@@ -45,20 +47,38 @@ export class ScoreBugComponent implements OnInit {
     this._admin.forceDefaultColors$.subscribe((forceDefaultColors) => {
       this.forceDefaultColors = forceDefaultColors;
     });
+    this._admin.teams$.subscribe((teams) => {
+      this.teams = teams;
+      this.setupTeams();
+    });
+    this._admin.nameLeft$.subscribe((nameLeft) => {
+      this.nameLeft = nameLeft;
+      this.setupTeams();
+    });
+    this._admin.nameRight$.subscribe((nameRight) => {
+      this.nameRight = nameRight;
+      this.setupTeams();
+    });
     this._data.overtime$.subscribe((isOvertime) => {
       this.isOvertime = isOvertime;
     });
-    this._data.teams$.subscribe((teams: Team[]) => {
+    this._data.teams$.subscribe((teams) => {
       this.teams = teams;
-      this.nameSizeLeft = teams[0].name.length <= 10 ? '50px' : `${50 - 4 * (teams[0].name.length - 10)}px`;
-      this.nameSizeRight = teams[1].name.length <= 10 ? '50px' : `${50 - 4 * (teams[1].name.length - 10)}px`;
-      this.wins = [
-        Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[0].wins),
-        Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[1].wins)
-      ];
+      this.setupTeams();
     });
     this._data.gametime$.subscribe((gameTime) => {
       this.gameTime = gameTime;
     });
   }
+
+  setupTeams(): void {
+    if(this.nameLeft) this.teams[0].name = this.nameLeft;
+    if(this.nameRight) this.teams[1].name = this.nameRight;
+    this.nameSizeLeft = this.teams[0].name.length <= 10 ? '50px' : `${50 - 4 * (this.teams[0].name.length - 10)}px`;
+    this.nameSizeRight = this.teams[1].name.length <= 10 ? '50px' : `${50 - 4 * (this.teams[1].name.length - 10)}px`;
+    this.wins = [
+      Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[0].wins),
+      Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[1].wins)
+    ];
+  } 
 }

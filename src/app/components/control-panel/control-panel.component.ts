@@ -91,6 +91,8 @@ export class ControlPanelComponent implements OnInit {
 
   updateTeams(): void {
     this._storage.setLocalEntry(Storage.TEAMS, this.teams);
+    this._storage.setLocalEntry(Storage.NAME_LEFT, this.teams[0].name);
+    this._storage.setLocalEntry(Storage.NAME_RIGHT, this.teams[1].name);
     this._storage.setLocalEntry(Storage.SHOW_DIRECTOR, this.showDirector);
     this._storage.setLocalEntry(Storage.LOGO_LEFT, this.logoLeft);
     this._storage.setLocalEntry(Storage.LOGO_RIGHT, this.logoRight);
@@ -111,5 +113,12 @@ export class ControlPanelComponent implements OnInit {
     } else {
       this.logoRight = this._storage.getLocalEntry('');
     }
+  }
+
+  async hardReset(): Promise<void> {
+    this._storage.setLocalEntry(Storage.HARD_RESET, true);
+    this._storage.setLocalEntry(Storage.CHANGE, true);
+    await new Promise<void>(done => setTimeout(() => done(), 1500));
+    window.location.reload();
   }
 }

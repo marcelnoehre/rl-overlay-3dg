@@ -12,7 +12,7 @@ export class AppComponent implements OnDestroy {
     title = 'rl-overlay-3dg'
 
     constructor(
-        private _storage: StorageService,
+        private _storage: StorageService
         ) {}
     
     ngOnDestroy(): void {

@@ -74,6 +74,7 @@ export class WebsocketService {
             this._storage.setLocalEntry(Storage.LOGO_RIGHT, 'assets/images/default-logo-1.png');
             this._storage.setLocalEntry(Storage.SHOW_DIRECTOR, true);
             this._storage.setLocalEntry(Storage.FORCE_DEFAULT_COLORS, false);
+            this._storage.setLocalEntry(Storage.HARD_RESET, false);
             this._storage.setLocalEntry(Storage.CHANGE, false);
         }
         this.subscribe('game', ['initialized', 'pre_countdown_begin'], () => {
@@ -102,7 +103,7 @@ export class WebsocketService {
             this._data.setReplay(false);
         }); 
         this.subscribe('game', ['update_state'], (data: any) => {
-            if(!this.setupDone && data.game.teams) {
+            if(data.game.teams) {
                 this._data.setTeamInformation(0, data.game.teams[0].name, '#' + data.game.teams[0].color_primary);
                 this._data.setTeamInformation(1, data.game.teams[1].name, '#' + data.game.teams[1].color_primary);
                 this.setupDone = true;
