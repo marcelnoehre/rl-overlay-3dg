@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Player } from 'src/app/interfaces/player';
 import { Team } from 'src/app/interfaces/team';
 import { DataService } from 'src/app/services/data.service';
 
@@ -9,6 +10,8 @@ import { DataService } from 'src/app/services/data.service';
 })
 export class MatchOverviewComponent implements OnInit {
   teams: Team[] = [];
+  players: Player[][] = [];
+  keys: string[] = ['score', 'goals', 'assists', 'saves', 'shots', 'demos', 'touches'];
 
   constructor(
     private _data: DataService
@@ -19,6 +22,9 @@ export class MatchOverviewComponent implements OnInit {
   ngOnInit(): void {
     this._data.teams$.subscribe((teams) => {
       this.teams = teams;
+    });
+    this._data.players$.subscribe((players) => {
+      this.players = players;
     });
   }
 

@@ -102,21 +102,30 @@ export class DataService {
             saves: 0,
             shots: 0,
             boost: 33,
-            target: false
+            target: false,
+            demos: 0,
+            touches: 0,
+            boostConsumption: 0,
+            speed: 0,
+            ticks: 0
         });
     }
 
-    setPlayerStats(id: string, score: number, goals: number, assists: number, saves: number, shots: number, boost: number, target: boolean) {
+    setPlayerStats(id: string, score: number, goals: number, assists: number, saves: number, shots: number, boost: number, target: boolean, demos: number, touches: number, speed: number, tick: boolean) {
         this.players[this.mapping[id]].score = score;
         this.players[this.mapping[id]].goals = goals;
         this.players[this.mapping[id]].assists = assists;
         this.players[this.mapping[id]].saves = saves;
         this.players[this.mapping[id]].shots = shots;
         if(this.players[this.mapping[id]].boost > boost) {
-            this.setBoostConsumption(this.players[this.mapping[id]].team, this.players[this.mapping[id]].boost - boost);
+            this.players[this.mapping[id]].boostConsumption += this.players[this.mapping[id]].boost - boost;
         }
         this.players[this.mapping[id]].boost = boost;
         this.players[this.mapping[id]].target = target;
+        this.players[this.mapping[id]].demos = demos;
+        this.players[this.mapping[id]].touches = touches;
+        if(tick) this.players[this.mapping[id]].ticks++;
+        this.players[this.mapping[id]].speed += speed;
     }
 
     setPlayers(): void {

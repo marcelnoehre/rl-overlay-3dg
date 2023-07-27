@@ -14,6 +14,7 @@ export class WebsocketService {
     private registerQueue: string[] = [];
     private activePlayers: string[] = [];
     private gameRunning: boolean = false;
+    private gameActive: boolean = false;
 
     constructor(
         private _storage: StorageService,
@@ -117,7 +118,8 @@ export class WebsocketService {
                         this.activePlayers = this.activePlayers.filter((active) => active !== player);
                     }
                 }
-                this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key);
+                //TODO: check when game is active to count ticks
+                this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key, data.players[key].demos, data.players[key].touches, data.players[key].speed, this.gameActive);
             }
             if(!this.gameRunning) this._data.setGameRunning( data.game.ball.team !== 255);
             this._data.setDirector(data.game.hasTarget && !data.game.isReplay);

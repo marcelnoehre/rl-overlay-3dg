@@ -1,4 +1,5 @@
 export interface Player {
+    [key: string]: number | string | boolean,
     id: string,
     name: string,
     team: number,
@@ -8,5 +9,10 @@ export interface Player {
     saves: number,
     shots: number,
     boost: number,
-    target: boolean
+    target: boolean,
+    demos: number,
+    touches: number,
+    boostConsumption: number,
+    speed: number,
+    ticks: number
 }

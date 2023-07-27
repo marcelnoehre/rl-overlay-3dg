@@ -2,104 +2,34 @@
     <div class="game-stats">
         <div class="scoreboard">
             <div class="header">
-                <span>Left Nr. 1</span>
-                <span>Left Nr. 2</span>
-                <span>Left Nr. 3</span>
+                <span *ngFor="let player of players[0]">{{ player.name }}</span>
                 <span>vs.</span>
-                <span>Right Nr. 1</span>
-                <span>Right Nr. 2</span>
-                <span>Right Nr. 3</span>
+                <span *ngFor="let player of players[1]">{{ player.name }}</span>
             </div>
-            <hr>
-            <div class="row">
-                <span>0</span>
-                <span>1</span>
-                <span>2</span>
-                <span>SCORE</span>
-                <span>2</span>
-                <span>1</span>
-                <span>0</span>
-            </div>
-            <hr>
-            <div class="row">
-                <span>2</span>
-                <span>0</span>
-                <span>1</span>
-                <span>GOALS</span>
-                <span>3</span>
-                <span>4</span>
-                <span>5</span>
-            </div>
-            <hr>
-            <div class="row">
-                <span>0</span>
-                <span>4</span>
-                <span>7</span>
-                <span>ASSISTS</span>
-                <span>3</span>
-                <span>6</span>
-                <span>9</span>
-            </div>
-            <hr>
-            <div class="row">
-                <span>3</span>
-                <span>6</span>
-                <span>9</span>
-                <span>SAVES</span>
-                <span>1</span>
-                <span>4</span>
-                <span>7</span>
-            </div>
-            <hr>
-            <div class="row">
-                <span>1</span>
-                <span>4</span>
-                <span>7</span>
-                <span>SHOTS</span>
-                <span>1</span>
-                <span>4</span>
-                <span>7</span>
-            </div>
-            <hr>
-            <div class="row">
-                <span>2</span>
-                <span>5</span>
-                <span>8</span>
-                <span>DEMOS</span>
-                <span>3</span>
-                <span>6</span>
-                <span>9</span>
-            </div>
-            <hr>
-            <div class="row">
-                <span>3</span>
-                <span>6</span>
-                <span>7</span>
-                <span>TOUCHES</span>
-                <span>3</span>
-                <span>5</span>
-                <span>7</span>
-            </div>
-            <hr>
-            <div class="row">
-                <span>1200</span>
-                <span>1000</span>
-                <span>800</span>
-                <span>BOOST</span>
-                <span>500</span>
-                <span>200</span>
-                <span>800</span>
-            </div>
-            <hr>
-            <div class="row">
-                <span>58 km/H</span>
-                <span>56 km/H</span>
-                <span>57 km/h</span>
-                <span>SPEED</span>
-                <span>58 km/H</span>
-                <span>56 km/H</span>
-                <span>57 km/h</span>
-            </div>
+            <ng-container *ngFor="let key of keys">
+                <hr>
+                <div class="row">
+                    <span *ngFor="let player of players[0]">{{ player[key] }}</span>
+                    <span>{{ key }}</span>
+                    <span *ngFor="let player of players[1]">{{ player[key] }}</span>
+                </div>
+            </ng-container>
+            <ng-container>
+                <hr>
+                <div class="row">
+                    <span *ngFor="let player of players[0]">{{ player.boostConsumption }}</span>
+                    <span>BOOST</span>
+                    <span *ngFor="let player of players[1]">{{ player.boostConsumption }}</span>
+                </div>
+            </ng-container>
+            <ng-container>
+                <hr>
+                <div class="row">
+                    <span *ngFor="let player of players[0]">{{ player.speed / player.ticks }}</span>
+                    <span>SPEED</span>
+                    <span *ngFor="let player of players[1]">{{ player.speed / player.ticks}}</span>
+                </div>
+            </ng-container>
         </div>
     </div>
 </div>
