@@ -12,7 +12,6 @@ export class WebsocketService {
     private webSocket!: WebSocket;
     private webSocketConnected = false;
     private registerQueue: string[] = [];
-    private setupDone: boolean = false;
     private activePlayers: string[] = [];
     private gameRunning: boolean = false;
 
@@ -106,12 +105,11 @@ export class WebsocketService {
             if(data.game.teams) {
                 this._data.setTeamInformation(0, data.game.teams[0].name, '#' + data.game.teams[0].color_primary);
                 this._data.setTeamInformation(1, data.game.teams[1].name, '#' + data.game.teams[1].color_primary);
-                this.setupDone = true;
             }
             for (const key in data.players) {
                 if(!this.activePlayers.includes(key)) {
                     this.activePlayers.push(key);
-                this._data.setPlayerId(key, data.players[key].name, data.players[key].team);
+                    this._data.setPlayerId(key, data.players[key].name, data.players[key].team);
                 }
                 for(const player of this.activePlayers) {
                     if(!data.players.hasOwnProperty(player)) {

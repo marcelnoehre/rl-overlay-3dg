@@ -1,7 +1,11 @@
 <div class="game-capture" *ngIf="gameAvailable">
     <app-teams *ngIf="gameRunning"></app-teams>
-    <app-score-bug></app-score-bug>
     <app-director *ngIf="director && showDirector"></app-director>
     <app-replay *ngIf="replay"></app-replay>
 </div>
-<!-- <div class="match-overview" *ngIf="matchOverview">TODO</div> -->
+<!-- <div class="match-overview" *ngIf="matchOverview"> -->
+<div class="match-overview">
+    <app-match-overview></app-match-overview>
+</div>
+<!-- <app-score-bug *ngIf="gameAvailable"></app-score-bug> -->
+<app-score-bug></app-score-bug>

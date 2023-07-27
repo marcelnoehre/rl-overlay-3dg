@@ -10,6 +10,7 @@ import { ScoreBugComponent } from './components/score-bug/score-bug.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { DirectorComponent } from './components/director/director.component';
 import { ReplayComponent } from './components/replay/replay.component';
+import { MatchOverviewComponent } from './components/match-overview/match-overview.component';
 import { ControlPanelComponent } from './components/control-panel/control-panel.component';
 
 import { DataService } from './services/data.service';
@@ -31,6 +32,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     TeamsComponent,
     DirectorComponent,
     ReplayComponent,
+    MatchOverviewComponent,
     ControlPanelComponent
   ],
   imports: [

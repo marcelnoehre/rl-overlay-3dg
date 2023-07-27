@@ -14,6 +14,7 @@ export class ScoreBugComponent implements OnInit {
   teams: Team[] = [];
   nameLeft: string = '';
   nameRight: string = '';
+  gameAvailable: boolean = false;
   isOvertime: boolean = false;
   gameTime: string = '';
   wins: boolean[][] = [];
@@ -58,6 +59,9 @@ export class ScoreBugComponent implements OnInit {
     this._admin.nameRight$.subscribe((nameRight) => {
       this.nameRight = nameRight;
       this.setupTeams();
+    });
+    this._data.gameAvailable$.subscribe((gameAvailable) => {
+      this.gameAvailable = gameAvailable;
     });
     this._data.overtime$.subscribe((isOvertime) => {
       this.isOvertime = isOvertime;

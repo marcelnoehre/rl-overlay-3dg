@@ -24,6 +24,7 @@ export class GameCaptureComponent {
       private _data: DataService,
       private _storage: StorageService
       ) {
+          _storage.clearLocal();
           _ws.init(49322);
           _data.init();
       }
