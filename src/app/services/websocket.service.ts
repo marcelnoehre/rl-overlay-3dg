@@ -13,8 +13,8 @@ export class WebsocketService {
     private webSocketConnected = false;
     private registerQueue: string[] = [];
     private activePlayers: string[] = [];
-    private gameRunning: boolean = false;
-    private gameActive: boolean = false;
+    private clockActive: boolean = false;
+    private matchOverview: boolean = false;
 
     constructor(
         private _storage: StorageService,
@@ -54,9 +54,6 @@ export class WebsocketService {
             this.triggerSubscribers("ws", "close");
             this.webSocketConnected = false;
         };
-        this._data.gameRunning$.subscribe((gameRunning: boolean) => {
-            this.gameRunning = gameRunning;
-        });
         this.setup();
     }
 
@@ -78,25 +75,39 @@ export class WebsocketService {
             this._storage.setLocalEntry(Storage.CHANGE, false);
         }
         this.subscribe('game', ['initialized', 'pre_countdown_begin'], () => {
-            this._data.setMatchOverview(false);
+            this._data.resetMatch();
+            this.matchOverview = false;
+            this._data.setMatchOverview(this.matchOverview);
             this._data.setGameAvailable(true);
             this._data.setGameRunning(true);
         });
         this.subscribe('game', ['match_destroyed'], (data: any) => {
-            this._data.resetMatch();
         });
         this.subscribe('game', ['match_ended'], (data: any) => {
             this._data.setGameRunning(false);
-            //TODO: removed till matchoverview is finished
-            // this._data.setGameAvailable(false);
             this._storage.setLocalEntry('series-' + data.winner_team_num, this._storage.getLocalEntry('series-' + data.winner_team_num) + 1);
             this._data.setTeamWins();
         });
+        this.subscribe('game', ['round_started_go'], () => {
+            this._data.setGameRunning(true);
+            this.clockActive = true;
+        });
+        this.subscribe('game', ['clock_started'], () => {
+            this._data.setGameRunning(true);
+            this.clockActive = true;
+        });
+        this.subscribe('game', ['clock_stopped'], () => {
+            this.clockActive = false;
+        });
+        this.subscribe('game', ['clock_updated_seconds'], (data: any) => {
+            this.clockActive = true;
+            this._data.setGameRunning(true);
+        });
         this.subscribe('game', ['podium_start'], () => {
-            this._data.setMatchOverview(true);
+            this.matchOverview = true;
+            this._data.setMatchOverview(this.matchOverview);
         });
         this.subscribe('game', ['replay_start'], () => {
-            this._data.setGameRunning(false);
             this._data.setReplay(true);
         });
         this.subscribe('game', ['replay_end'], () => {
@@ -118,10 +129,8 @@ export class WebsocketService {
                         this.activePlayers = this.activePlayers.filter((active) => active !== player);
                     }
                 }
-                //TODO: check when game is active to count ticks
-                this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key, data.players[key].demos, data.players[key].touches, data.players[key].speed, this.gameActive);
+                this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key, data.players[key].demos, data.players[key].touches, data.players[key].speed, this.clockActive, this.matchOverview);
             }
-            if(!this.gameRunning) this._data.setGameRunning( data.game.ball.team !== 255);
             this._data.setDirector(data.game.hasTarget && !data.game.isReplay);
             this._data.setTeamScore(0, data.game.teams[0].score);
             this._data.setTeamScore(1, data.game.teams[1].score);
@@ -130,9 +139,6 @@ export class WebsocketService {
             this._data.setGameTime(data.game.time_seconds);
             this._data.setOvertime(data.game.isOT);
             this._data.setPlayers();
-        });
-        this.subscribe('game', ['ball_hit'], (data: any) => {
-            //TODO: update ballPossession
         });
         this.subscribe('game', ['statfeed_event'], (data: any) => {
             //TODO: throw events

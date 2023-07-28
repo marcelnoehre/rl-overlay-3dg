@@ -14,7 +14,7 @@ export class ScoreBugComponent implements OnInit {
   teams: Team[] = [];
   nameLeft: string = '';
   nameRight: string = '';
-  gameAvailable: boolean = false;
+  gameRunning: boolean = false;
   isOvertime: boolean = false;
   gameTime: string = '';
   wins: boolean[][] = [];
@@ -60,8 +60,8 @@ export class ScoreBugComponent implements OnInit {
       this.nameRight = nameRight;
       this.setupTeams();
     });
-    this._data.gameAvailable$.subscribe((gameAvailable) => {
-      this.gameAvailable = gameAvailable;
+    this._data.gameRunning$.subscribe((gameRunning) => {
+      this.gameRunning = gameRunning;
     });
     this._data.overtime$.subscribe((isOvertime) => {
       this.isOvertime = isOvertime;
@@ -82,7 +82,7 @@ export class ScoreBugComponent implements OnInit {
     this.nameSizeRight = this.teams[1].name.length <= 10 ? '50px' : `${50 - 4 * (this.teams[1].name.length - 10)}px`;
     this.wins = [
       Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[0].wins),
-      Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[1].wins)
+      Array.from({ length: this.seriesLength }, (_, i) => i < this.teams[1].wins).reverse()
     ];
   } 
 }

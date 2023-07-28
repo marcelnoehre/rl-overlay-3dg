@@ -13,18 +13,19 @@ export class MatchOverviewComponent implements OnInit {
   players: Player[][] = [];
   keys: string[] = ['score', 'goals', 'assists', 'saves', 'shots', 'demos', 'touches'];
 
-  constructor(
-    private _data: DataService
-  ) {
-
-  }
+  constructor(private _data: DataService) { }
 
   ngOnInit(): void {
     this._data.teams$.subscribe((teams) => {
       this.teams = teams;
     });
     this._data.players$.subscribe((players) => {
-      this.players = players;
+      this.players = [...players];
+    });
+    this.players.forEach((teams) => {
+      teams.forEach((player) => {
+        player.speed = parseFloat((player.speed / player.ticks).toFixed(2));
+      });
     });
   }
 

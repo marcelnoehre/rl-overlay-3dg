@@ -24,7 +24,6 @@ export class DataService {
     private mapping: { [key: string]: number } = {}
     private teams: Team[] = [];
     private players: Player[] = [];
-    private stats!: Stats;
 
     constructor(
         private _storage: StorageService,
@@ -46,10 +45,6 @@ export class DataService {
             wins: 0,
             players: []
         });
-        this.stats = {
-            ballPosession: [0, 0],
-            boostConsumption: [0, 0]
-        }
         this._storage.setLocalEntry(Storage.TEAMS, this.teams);
         this._admin.teams$.subscribe((teams) => {
             if(teams.length > 0) {
@@ -62,10 +57,6 @@ export class DataService {
     resetMatch(): void {
         this.mapping = {};
         this.players = [];
-        this.stats = {
-            ballPosession: [0, 0],
-            boostConsumption: [0, 0]
-        }
         this.setPlayers();
         //TODO: reset gameoverview attributes
     }
@@ -111,21 +102,25 @@ export class DataService {
         });
     }
 
-    setPlayerStats(id: string, score: number, goals: number, assists: number, saves: number, shots: number, boost: number, target: boolean, demos: number, touches: number, speed: number, tick: boolean) {
-        this.players[this.mapping[id]].score = score;
-        this.players[this.mapping[id]].goals = goals;
-        this.players[this.mapping[id]].assists = assists;
-        this.players[this.mapping[id]].saves = saves;
-        this.players[this.mapping[id]].shots = shots;
-        if(this.players[this.mapping[id]].boost > boost) {
-            this.players[this.mapping[id]].boostConsumption += this.players[this.mapping[id]].boost - boost;
+    setPlayerStats(id: string, score: number, goals: number, assists: number, saves: number, shots: number, boost: number, target: boolean, demos: number, touches: number, speed: number, clockActive: boolean, matchOverview: boolean) {
+        if(!matchOverview) {
+            this.players[this.mapping[id]].score = score;
+            this.players[this.mapping[id]].goals = goals;
+            this.players[this.mapping[id]].assists = assists;
+            this.players[this.mapping[id]].saves = saves;
+            this.players[this.mapping[id]].shots = shots;
+            if(this.players[this.mapping[id]].boost > boost) {
+                this.players[this.mapping[id]].boostConsumption += this.players[this.mapping[id]].boost - boost;
+            }
+            this.players[this.mapping[id]].boost = boost;
+            this.players[this.mapping[id]].target = target;
+            this.players[this.mapping[id]].demos = demos;
+            this.players[this.mapping[id]].touches = touches;
+            if(clockActive) {
+                this.players[this.mapping[id]].ticks++;
+                this.players[this.mapping[id]].speed += speed;
+            }
         }
-        this.players[this.mapping[id]].boost = boost;
-        this.players[this.mapping[id]].target = target;
-        this.players[this.mapping[id]].demos = demos;
-        this.players[this.mapping[id]].touches = touches;
-        if(tick) this.players[this.mapping[id]].ticks++;
-        this.players[this.mapping[id]].speed += speed;
     }
 
     setPlayers(): void {
@@ -162,14 +157,6 @@ export class DataService {
 
     setDirector(director: boolean): void {
         this._director.next(director);
-    }
-
-    setBallPossesion(team: number): void {
-        this.stats.ballPosession[team]++;
-    }
-
-    setBoostConsumption(team: number, boost: number): void {
-        this.stats.boostConsumption[team] += boost;
     }
 
     removePlayer(id: string) {
