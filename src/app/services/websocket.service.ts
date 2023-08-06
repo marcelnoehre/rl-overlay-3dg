@@ -74,14 +74,15 @@ export class WebsocketService {
             this._storage.setLocalEntry(Storage.HARD_RESET, false);
             this._storage.setLocalEntry(Storage.CHANGE, false);
         }
-        this.subscribe('game', ['initialized', 'pre_countdown_begin'], () => {
-            this._data.resetMatch();
+        this.subscribe('game', ['initialized'], () => {
             this.matchOverview = false;
             this._data.setMatchOverview(this.matchOverview);
+            this._data.resetMatch();
             this._data.setGameAvailable(true);
             this._data.setGameRunning(true);
         });
-        this.subscribe('game', ['match_destroyed'], (data: any) => {
+        this.subscribe('game', ['pre_countdown_begin'], () => {
+            this._data.setGameRunning(true);
         });
         this.subscribe('game', ['match_ended'], (data: any) => {
             this._data.setGameRunning(false);
@@ -123,14 +124,23 @@ export class WebsocketService {
                     this.activePlayers.push(key);
                     this._data.setPlayerId(key, data.players[key].name, data.players[key].team);
                 }
-                for(const player of this.activePlayers) {
-                    if(!data.players.hasOwnProperty(player)) {
-                        this._data.removePlayer(player);
-                        this.activePlayers = this.activePlayers.filter((active) => active !== player);
+            }
+            for(const active of this.activePlayers) {
+                let check: boolean = false;
+                for(const key in data.players) {
+                    if(active === data.players[key].id) {
+                        check = true;
                     }
                 }
-                this._data.setPlayerStats(key, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key, data.players[key].demos, data.players[key].touches, data.players[key].speed, this.clockActive, this.matchOverview);
+                if(!check) {
+                    this._data.removePlayer(active);
+                    this.activePlayers = this.activePlayers.filter(player => player !== active);
+                }
+            }                   
+            for(const key in data.players) {
+                this._data.setPlayerStats(key, data.players[key].team, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key, data.players[key].demos, data.players[key].touches, data.players[key].speed, this.clockActive, this.matchOverview);
             }
+            if(!this.matchOverview && data.game.ball.team !== 255) this._data.setGameRunning(true);
             this._data.setDirector(data.game.hasTarget && !data.game.isReplay);
             this._data.setTeamScore(0, data.game.teams[0].score);
             this._data.setTeamScore(1, data.game.teams[1].score);
