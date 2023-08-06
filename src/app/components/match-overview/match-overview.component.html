@@ -6,9 +6,9 @@
                 <span>vs.</span>
                 <span *ngFor="let player of players[1]">{{ player.name }}</span>
             </div>
-            <ng-container *ngFor="let key of keys">
+            <ng-container *ngFor="let key of keys; index as i">
                 <hr>
-                <div class="row">
+                <div class="row" style="--average: {{averages[i]}}">
                     <span *ngFor="let player of players[0]">{{ player[key] }}</span>
                     <span>{{ key }}</span>
                     <span *ngFor="let player of players[1]">{{ player[key] }}</span>
@@ -16,7 +16,7 @@
             </ng-container>
             <ng-container>
                 <hr>
-                <div class="row">
+                <div class="row" style="--average: {{averages[7]}}">
                     <span *ngFor="let player of players[0]">{{ player.boostConsumption }}</span>
                     <span>BOOST</span>
                     <span *ngFor="let player of players[1]">{{ player.boostConsumption }}</span>
@@ -24,7 +24,7 @@
             </ng-container>
             <ng-container>
                 <hr>
-                <div class="row">
+                <div class="row" style="--average: {{averages[8]}}">
                     <span *ngFor="let player of players[0]">{{ player.speed }}&nbsp;km/h</span>
                     <span>SPEED</span>
                     <span *ngFor="let player of players[1]">{{ player.speed }}&nbsp;km/h</span>
