@@ -76,7 +76,7 @@ export class WebsocketService {
         }
         this.subscribe('game', ['initialized'], () => {
             this.matchOverview = false;
-            this._data.setMatchOverview(this.matchOverview);
+            this._data.setMatchOverview(false);
             this._data.resetMatch();
             this._data.setGameAvailable(true);
             this._data.setGameRunning(true);
@@ -125,18 +125,20 @@ export class WebsocketService {
                     this._data.setPlayerId(key, data.players[key].name, data.players[key].team);
                 }
             }
+            if(!this.matchOverview) {
             for(const active of this.activePlayers) {
-                let check: boolean = false;
-                for(const key in data.players) {
-                    if(active === data.players[key].id) {
-                        check = true;
+                    let check: boolean = false;
+                    for(const key in data.players) {
+                        if(active === data.players[key].id) {
+                            check = true;
+                        }
+                    }
+                    if(!check) {
+                        this._data.removePlayer(active);
+                        this.activePlayers = this.activePlayers.filter(player => player !== active);
                     }
                 }
-                if(!check) {
-                    this._data.removePlayer(active);
-                    this.activePlayers = this.activePlayers.filter(player => player !== active);
-                }
-            }                   
+            }
             for(const key in data.players) {
                 this._data.setPlayerStats(key, data.players[key].team, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key, data.players[key].demos, data.players[key].touches, data.players[key].speed, this.clockActive, this.matchOverview);
             }
