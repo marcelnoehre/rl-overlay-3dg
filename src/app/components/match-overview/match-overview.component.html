@@ -1,6 +1,6 @@
 <div class="match-overview-container">
     <div class="game-stats">
-        <div class="scoreboard">
+        <div class="scoreboard" style="--color-left: {{teams[0].color}}; --color-right: {{teams[1].color}}; ">
             <div class="header">
                 <span *ngFor="let player of players[0]">{{ player.name }}</span>
                 <span>vs.</span>
@@ -10,7 +10,10 @@
                 <hr>
                 <div class="row" style="--average: {{averages[i]}}">
                     <span *ngFor="let player of players[0]">{{ player[key] }}</span>
-                    <span>{{ key }}</span>
+                    <span>
+                        <img [src]="'assets/images/match-overview/' + key + '.png'">
+                        {{ key }}
+                    </span>
                     <span *ngFor="let player of players[1]">{{ player[key] }}</span>
                 </div>
             </ng-container>
@@ -18,7 +21,10 @@
                 <hr>
                 <div class="row" style="--average: {{averages[7]}}">
                     <span *ngFor="let player of players[0]">{{ player.boostConsumption }}</span>
-                    <span>BOOST</span>
+                    <span>
+                        <img src="assets/images/match-overview/boost.png">
+                        BOOST
+                    </span>
                     <span *ngFor="let player of players[1]">{{ player.boostConsumption }}</span>
                 </div>
             </ng-container>
@@ -26,7 +32,10 @@
                 <hr>
                 <div class="row" style="--average: {{averages[8]}}">
                     <span *ngFor="let player of players[0]">{{ player.speed }}&nbsp;km/h</span>
-                    <span>SPEED</span>
+                    <span>
+                        <img src="assets/images/match-overview/speed.png">
+                        SPEED
+                    </span>
                     <span *ngFor="let player of players[1]">{{ player.speed }}&nbsp;km/h</span>
                 </div>
             </ng-container>

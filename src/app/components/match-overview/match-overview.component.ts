@@ -50,6 +50,5 @@ export class MatchOverviewComponent implements OnInit {
       });
       this.averages.push((sums[0] + sums[1] === 0 ? 50 : 7.5 + (sums[0] / (sums[0] + sums[1])) * (92.5 - 7.5)) + '%');
     }
-    console.log(this.averages);
   }
 }
