@@ -1,7 +1,7 @@
 <div class="team-container team-left">
     <div class="players">
-        <div class="player" *ngFor="let player of players[0]">
-            <div class="information">
+        <div class="player" *ngFor="let player of players[0]; index as i">
+            <div class="information" *ngIf="i < 3">
                 <div class="name" style="--name-size: {{player.name.length > 18 ? 20 - ((player.name.length - 18) / 1.75) + 'px' : '20px'}}">
                     {{ player.name }}
                 </div>
@@ -9,7 +9,7 @@
                     {{ player.boost }}
                 </div>
             </div>
-            <div class="boostbar">
+            <div class="boostbar" *ngIf="i < 3">
                 <mat-progress-bar [value]="player.boost" style="--slider-color: {{forceDefaultColors ? '#1873FF' : teams[player.team].color}}"></mat-progress-bar>
             </div>
         </div>
@@ -17,16 +17,16 @@
 </div>
 <div class="team-container team-right">
     <div class="players">
-        <div class="player" *ngFor="let player of players[1]">
+        <div class="player" *ngFor="let player of players[1]; index as i">
             <div class="information">
-                <div class="boost">
+                <div class="boost" *ngIf="i < 3">
                     {{ player.boost }}
                 </div>
                 <div class="name" style="--name-size: {{player.name.length > 18 ? 20 - ((player.name.length - 18) / 1.75) + 'px' : '20px'}}">
                     {{ player.name }}
                 </div>
             </div>
-            <div class="boostbar">
+            <div class="boostbar" *ngIf="i < 3">
                 <mat-progress-bar [value]="player.boost" style="--slider-color: {{forceDefaultColors ? '#C26418' : teams[player.team].color}}; transform: scale(-1);"></mat-progress-bar>
             </div>
         </div>

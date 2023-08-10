@@ -21,10 +21,8 @@ export class DataService {
     private _replay: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _director: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    private mappingLeft: { [key: string]: number } = {}
-    private mappingRight: { [key: string]: number } = {}
+    private mapping: { [key: string]: Player } = {}
     private teams: Team[] = [];
-    private players: Player[] = [];
 
     constructor(
         private _storage: StorageService,
@@ -56,9 +54,7 @@ export class DataService {
     }
 
     resetMatch(): void {
-        this.mappingLeft = {};
-        this.mappingRight = {};
-        this.players = [];
+        this.mapping = {};
         this.setPlayers();
     }
 
@@ -83,56 +79,52 @@ export class DataService {
     }
 
     setPlayerId(id: string, name: string, team: number): void {
-        if(team === 0) {
-            this.mappingLeft[id] = this.players.length;
-        } else {
-            this.mappingRight[id] = this.players.length;
+        if(!this.mapping[id]) {
+            this.mapping[id] = {
+                id: id,
+                name: name,
+                team: team,
+                score: 0,
+                goals: 0,
+                assists: 0,
+                saves: 0,
+                shots: 0,
+                boost: 33,
+                target: false,
+                demos: 0,
+                touches: 0,
+                boostConsumption: 0,
+                speed: 0,
+                ticks: 0
+            };
         }
-        this.players.push({
-            id: id,
-            name: name,
-            team: team,
-            score: 0,
-            goals: 0,
-            assists: 0,
-            saves: 0,
-            shots: 0,
-            boost: 33,
-            target: false,
-            demos: 0,
-            touches: 0,
-            boostConsumption: 0,
-            speed: 0,
-            ticks: 0
-        });
     }
 
     setPlayerStats(id: string, team: number, score: number, goals: number, assists: number, saves: number, shots: number, boost: number, target: boolean, demos: number, touches: number, speed: number, clockActive: boolean, matchOverview: boolean) {
         if(!matchOverview) {
-            const index = team === 0 ? this.mappingLeft[id] : this.mappingRight[id];
-            this.players[index].score = score;
-            this.players[index].goals = goals;
-            this.players[index].assists = assists;
-            this.players[index].saves = saves;
-            this.players[index].shots = shots;
-            if(this.players[index].boost > boost) {
-                this.players[index].boostConsumption += this.players[index].boost - boost;
+            this.mapping[id].score = score;
+            this.mapping[id].goals = goals;
+            this.mapping[id].assists = assists;
+            this.mapping[id].saves = saves;
+            this.mapping[id].shots = shots;
+            if(this.mapping[id].boost > boost) {
+                this.mapping[id].boostConsumption += this.mapping[id].boost - boost;
             }
-            this.players[index].boost = boost;
-            this.players[index].target = target;
-            this.players[index].demos = demos;
-            this.players[index].touches = touches;
+            this.mapping[id].boost = boost;
+            this.mapping[id].target = target;
+            this.mapping[id].demos = demos;
+            this.mapping[id].touches = touches;
             if(clockActive) {
-                this.players[index].ticks++;
-                this.players[index].speed += speed;
+                this.mapping[id].ticks++;
+                this.mapping[id].speed += speed;
             }
         }
     }
 
     setPlayers(): void {
         this._players.next([
-            this.players.filter(player => this.mappingLeft.hasOwnProperty(player.id) && player.team === 0),
-            this.players.filter(player => this.mappingRight.hasOwnProperty(player.id) && player.team === 1)
+            Object.values(this.mapping).filter(player => player.team === 0),
+            Object.values(this.mapping).filter(player => player.team === 1)
         ]);
     }
 
@@ -166,8 +158,7 @@ export class DataService {
     }
 
     removePlayer(id: string) {
-        delete this.mappingLeft[id];
-        delete this.mappingRight[id];
+        delete this.mapping[id];
     }
 
     get teams$(): Observable<Team[]> {
