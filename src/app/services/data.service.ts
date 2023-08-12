@@ -65,8 +65,10 @@ export class DataService {
         this.setGameAvailable(true);
     }
 
-    setTeamScore(team: number, score: number) {
-        this.teams[team].score = score;
+    setTeamScore(team: number, score: number, matchoverview: boolean) {
+        if(!matchoverview) {
+            this.teams[team].score = score;
+        }
     }
 
     setTeamWins() {

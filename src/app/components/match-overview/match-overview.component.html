@@ -1,42 +1,44 @@
 <div class="match-overview-container">
     <div class="game-stats">
-        <div class="scoreboard" style="--color-left: {{teams[0].color}}; --color-right: {{teams[1].color}}; ">
+        <div class="scoreboard" style="--color-left: {{forceDefaultColors ? '#1873FF' : teams[0].color}}; --color-right: {{forceDefaultColors ? '#C26418' : teams[1].color}};">
             <div class="header">
-                <span *ngFor="let player of players[0]">{{ player.name }}</span>
+                <span *ngFor="let player of players[0]" [ngStyle]="{'color': mvp[0] === 0 && mvp[1] === player.score ? '#ffdd00' : ''}">
+                    {{ player.name }}
+                </span>
                 <span>vs.</span>
-                <span *ngFor="let player of players[1]">{{ player.name }}</span>
+                <span *ngFor="let player of players[1]" [ngStyle]="{'color': mvp[0] === 1 && mvp[1] === player.score ? '#ffdd00' : ''}">{{ player.name }}</span>
             </div>
             <ng-container *ngFor="let key of keys; index as i">
                 <hr>
                 <div class="row" style="--average: {{averages[i]}}">
-                    <span *ngFor="let player of players[0]">{{ player[key] }}</span>
+                    <span *ngFor="let player of players[0]" [ngStyle]="{'color': player[key] === this.max[i] && this.max[i] > 0 ? '#ffdd00' : ''}">{{ player[key] }}</span>
                     <span>
                         <img [src]="'assets/images/match-overview/' + key + '.png'">
                         {{ key }}
                     </span>
-                    <span *ngFor="let player of players[1]">{{ player[key] }}</span>
+                    <span *ngFor="let player of players[1]" [ngStyle]="{'color': player[key] === this.max[i] && this.max[i] > 0 ? '#ffdd00' : ''}">{{ player[key] }}</span>
                 </div>
             </ng-container>
             <ng-container>
                 <hr>
                 <div class="row" style="--average: {{averages[7]}}">
-                    <span *ngFor="let player of players[0]">{{ player.boostConsumption }}</span>
+                    <span *ngFor="let player of players[0]" [ngStyle]="{'color': player.boostConsumption === this.max[7] && this.max[7] > 0 ? '#ffdd00' : ''}">{{ player.boostConsumption }}</span>
                     <span>
                         <img src="assets/images/match-overview/boost.png">
                         BOOST
                     </span>
-                    <span *ngFor="let player of players[1]">{{ player.boostConsumption }}</span>
+                    <span *ngFor="let player of players[1]" [ngStyle]="{'color': player.boostConsumption === this.max[7] && this.max[7] > 0 ? '#ffdd00' : ''}">{{ player.boostConsumption }}</span>
                 </div>
             </ng-container>
             <ng-container>
                 <hr>
                 <div class="row" style="--average: {{averages[8]}}">
-                    <span *ngFor="let player of players[0]">{{ player.speed }}&nbsp;km/h</span>
+                    <span *ngFor="let player of players[0]" [ngStyle]="{'color': player.speed === this.max[8] && this.max[8] > 0 ? '#ffdd00' : ''}">{{ player.speed }}&nbsp;km/h</span>
                     <span>
                         <img src="assets/images/match-overview/speed.png">
                         SPEED
                     </span>
-                    <span *ngFor="let player of players[1]">{{ player.speed }}&nbsp;km/h</span>
+                    <span *ngFor="let player of players[1]" [ngStyle]="{'color': player.speed === this.max[8] && this.max[8] > 0 ? '#ffdd00' : ''}">{{ player.speed }}&nbsp;km/h</span>
                 </div>
             </ng-container>
         </div>

@@ -144,8 +144,8 @@ export class WebsocketService {
             }
             if(!this.matchOverview && data.game.ball.team !== 255) this._data.setGameRunning(true);
             this._data.setDirector(data.game.hasTarget && !data.game.isReplay);
-            this._data.setTeamScore(0, data.game.teams[0].score);
-            this._data.setTeamScore(1, data.game.teams[1].score);
+            this._data.setTeamScore(0, data.game.teams[0].score, this.matchOverview);
+            this._data.setTeamScore(1, data.game.teams[1].score, this.matchOverview);
             this._data.setTeamWins();
             this._data.setTeams();
             this._data.setGameTime(data.game.time_seconds);
