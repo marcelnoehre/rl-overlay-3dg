@@ -2,11 +2,23 @@
     <div class="game-stats">
         <div class="scoreboard" style="--color-left: {{forceDefaultColors ? '#1873FF' : teams[0].color}}; --color-right: {{forceDefaultColors ? '#C26418' : teams[1].color}};">
             <div class="header">
-                <span *ngFor="let player of players[0]" [ngStyle]="{'color': mvp[0] === 0 && mvp[1] === player.score ? '#ffdd00' : ''}">
+                <span 
+                    *ngFor="let player of players[0]" 
+                    [ngClass]="mvp[0] === 0 && mvp[1] === player.score ? 'mvp' : ''" 
+                    [ngStyle]="{'color': mvp[0] === 0 && mvp[1] === player.score ? '#ffdd00' : ''}"
+                >
+                    <img *ngIf="mvp[0] === 0 && mvp[1] === player.score" src="assets/images/match-overview/mvp.png">
                     {{ player.name }}
                 </span>
                 <span>vs.</span>
-                <span *ngFor="let player of players[1]" [ngStyle]="{'color': mvp[0] === 1 && mvp[1] === player.score ? '#ffdd00' : ''}">{{ player.name }}</span>
+                <span 
+                    *ngFor="let player of players[1]" 
+                    [ngClass]="mvp[0] === 1 && mvp[1] === player.score ? 'mvp' : ''" 
+                    [ngStyle]="{'color': mvp[0] === 1 && mvp[1] === player.score ? '#ffdd00' : ''}"
+                >
+                    <img *ngIf="mvp[0] === 1 && mvp[1] === player.score" src="assets/images/match-overview/mvp.png">
+                    {{ player.name }}
+                </span>
             </div>
             <ng-container *ngFor="let key of keys; index as i">
                 <hr>
