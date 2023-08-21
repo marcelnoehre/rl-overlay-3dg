@@ -18,8 +18,8 @@
 <div class="team-container team-right">
     <div class="players">
         <div class="player" *ngFor="let player of players[1]; index as i">
-            <div class="information">
-                <div class="boost" *ngIf="i < 3">
+            <div class="information" *ngIf="i < 3">
+                <div class="boost">
                     {{ player.boost }}
                 </div>
                 <div class="name" style="--name-size: {{player.name.length > 18 ? 20 - ((player.name.length - 18) / 1.75) + 'px' : '20px'}}">
