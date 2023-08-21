@@ -50,9 +50,11 @@ export class WebsocketService {
             this.webSocketConnected = false;
         };
 
-        this.webSocket.onclose = () => {
+        this.webSocket.onclose = async () => {
             this.triggerSubscribers("ws", "close");
             this.webSocketConnected = false;
+            await new Promise(res => setTimeout(res, 1000));
+            window.location.reload();
         };
         this.setup();
     }
@@ -106,7 +108,7 @@ export class WebsocketService {
         });
         this.subscribe('game', ['podium_start'], () => {
             this.matchOverview = true;
-            this._data.setMatchOverview(this.matchOverview);
+            this._data.setMatchOverview(true);
         });
         this.subscribe('game', ['replay_start'], () => {
             this._data.setReplay(true);
