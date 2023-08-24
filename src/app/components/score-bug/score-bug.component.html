@@ -14,8 +14,8 @@
             <p>{{ teams[0].score }}</p>
         </div>
         <div class="time" [ngClass]="isOvertime ? 'overtime' : ''">
-            <div class="overtime-label" *ngIf="gameRunning && isOvertime">Overtime</div>
-            <p *ngIf="gameRunning">{{ isOvertime ? '+' + gameTime : '' + gameTime }}</p>
+            <div class="overtime-label" *ngIf="!matchOverview && isOvertime">Overtime</div>
+            <p *ngIf="!matchOverview">{{ isOvertime ? '+' + gameTime : '' + gameTime }}</p>
         </div>
         <div class="score" style="--team-color: {{forceDefaultColors ? '#C26418' : teams[1].color}}">
             <p>{{ teams[1].score }}</p>
