@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from 'src/app/enums/storage';
 import { Team } from 'src/app/interfaces/team';
@@ -8,7 +9,14 @@ import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-score-bug',
   templateUrl: './score-bug.component.html',
-  styleUrls: ['./score-bug.component.scss']
+  styleUrls: ['./score-bug.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter', animate('1.25s ease-in-out')),
+      transition(':leave', animate('0.75s ease-in-out'))
+    ])
+  ]
 })
 export class ScoreBugComponent implements OnInit {
   teams: Team[] = [];

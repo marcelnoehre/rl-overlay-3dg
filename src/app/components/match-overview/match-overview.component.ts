@@ -35,6 +35,7 @@ export class MatchOverviewComponent implements OnInit {
     this.players.forEach((teams) => {
       teams.forEach((player) => {
         player.speed = parseFloat((player.speed / player.ticks).toFixed(2));
+        player.speed = isNaN(player.speed) ? 0 : player.speed;
       });
     });
     this._admin.forceDefaultColors$.subscribe((forceDefaultColors) => {
@@ -64,7 +65,7 @@ export class MatchOverviewComponent implements OnInit {
         sums[1] += Number(player[key]);
         if(this.max[i] < Number(player[key])) this.max[i] = Number(player[key]);
       });
-      this.averages.push((sums[0] + sums[1] === 0 ? 50 : 7.5 + (sums[0] / (sums[0] + sums[1])) * (92.5 - 7.5)) + '%');
+      this.averages.push((sums[0] + sums[1] === 0 || isNaN(sums[0]) ? 50 : 7.5 + (sums[0] / (sums[0] + sums[1])) * (92.5 - 7.5)) + '%');
       i++;
     }
     let goals: number[] = [0, 0];

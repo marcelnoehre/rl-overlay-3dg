@@ -1,9 +1,10 @@
 .match-overview-container {
     position: absolute;
     padding-top: 14vh;
-    height: 100vh;
+    height: calc(100vh + 2px);
     width: 100vw;
     background-image: url('/assets/images/match-overview-bg.png');
+    transform: translateY(-2px);
 }
 
 .game-stats {

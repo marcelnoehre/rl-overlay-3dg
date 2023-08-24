@@ -104,7 +104,8 @@ export class WebsocketService {
                 }
                 if(data.game.hasWinner) {
                     this._data.setGameRunning(false);
-                    this._storage.setLocalEntry('series-' + data.winner_team_num, this._storage.getLocalEntry('series-' + data.winner_team_num) + 1);
+                    const winner: string = data.game.teams[0].score > data.game.teams[1].score ? 'series-0' : 'series-1'
+                    this._storage.setLocalEntry(winner, this._storage.getLocalEntry(winner) + 1);
                     this._data.setTeamWins();
                     this.matchOverview = true;
                     this._data.setMatchOverview(true);

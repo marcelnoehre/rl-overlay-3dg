@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Storage } from 'src/app/enums/storage';
 import { AdminService } from 'src/app/services/admin.service';
@@ -8,7 +9,14 @@ import { WebsocketService } from 'src/app/services/websocket.service';
 @Component({
   selector: 'app-game-capture',
   templateUrl: './game-capture.component.html',
-  styleUrls: ['./game-capture.component.scss']
+  styleUrls: ['./game-capture.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter', animate('1.25s ease-in-out')),
+      transition(':leave', animate('0.75s ease-in-out'))
+    ])
+  ]
 })
 export class GameCaptureComponent {
   gameAvailable: boolean = false;
@@ -37,7 +45,7 @@ export class GameCaptureComponent {
         this.gameRunning = gameRunning;
     });
     this._data.matchOverview$.subscribe(async (matchOverview: boolean) => {
-        if(matchOverview) await new Promise(res => setTimeout(res, 4500));
+        if(matchOverview) await new Promise(res => setTimeout(res, 6500));
         this.matchOverview = matchOverview;
     });
     this._data.director$.subscribe((director: boolean) => {

@@ -11,7 +11,7 @@
 }
 
 .team-left {
-    transform: skew(10deg) translateX(-15px);
+    transform: skew(10deg) translateX(-325px);
     background: linear-gradient(to bottom left, #303f55, #202020);
     .players {
         transform: skew(-10deg);
@@ -19,11 +19,12 @@
     .boost {
         text-align: right;
     }
+    animation: move-left 1s ease forwards 0.5s;
 }
 
 .team-right {
     right: 0;
-    transform: skew(-10deg) translateX(15px);
+    transform: skew(10deg) translateX(325px);
     background: linear-gradient(to bottom right, #303f55, #202020);
     .players {
         transform: skew(10deg);
@@ -31,6 +32,7 @@
             text-align: right;
         }
     }
+    animation: move-right 1s ease forwards 0.5s;
 }
 
 .players {
@@ -78,5 +80,23 @@
 
     .mdc-linear-progress__bar-inner {
         border-color: var(--slider-color);
+    }
+}
+
+@keyframes move-left {
+    0% {
+        transform: skew(10deg) translateX(-325px);
+    }
+    100% {
+        transform: skew(10deg) translateX(-15px);
+    }
+}
+
+@keyframes move-right {
+    0% {
+        transform: skew(10deg) translateX(325px);
+    }
+    100% {
+        transform: skew(-10deg) translateX(15px);
     }
 }
