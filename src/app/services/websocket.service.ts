@@ -54,7 +54,7 @@ export class WebsocketService {
             this.triggerSubscribers("ws", "close");
             this.webSocketConnected = false;
             await new Promise(res => setTimeout(res, 1000));
-            window.location.reload();
+            this.init();
         };
         this.setup();
     }
@@ -76,40 +76,6 @@ export class WebsocketService {
             this._storage.setLocalEntry(Storage.HARD_RESET, false);
             this._storage.setLocalEntry(Storage.CHANGE, false);
         }
-        this.subscribe('game', ['initialized'], () => {
-            this.matchOverview = false;
-            this._data.setMatchOverview(false);
-            this._data.resetMatch();
-            this._data.setGameAvailable(true);
-            this._data.setGameRunning(true);
-        });
-        this.subscribe('game', ['pre_countdown_begin'], () => {
-            this._data.setGameRunning(true);
-        });
-        this.subscribe('game', ['match_ended'], (data: any) => {
-            this._data.setGameRunning(false);
-            this._storage.setLocalEntry('series-' + data.winner_team_num, this._storage.getLocalEntry('series-' + data.winner_team_num) + 1);
-            this._data.setTeamWins();
-        });
-        this.subscribe('game', ['round_started_go'], () => {
-            this._data.setGameRunning(true);
-            this.clockActive = true;
-        });
-        this.subscribe('game', ['clock_started'], () => {
-            this._data.setGameRunning(true);
-            this.clockActive = true;
-        });
-        this.subscribe('game', ['clock_stopped'], () => {
-            this.clockActive = false;
-        });
-        this.subscribe('game', ['clock_updated_seconds'], (data: any) => {
-            this.clockActive = true;
-            this._data.setGameRunning(true);
-        });
-        this.subscribe('game', ['podium_start'], () => {
-            this.matchOverview = true;
-            this._data.setMatchOverview(true);
-        });
         this.subscribe('game', ['replay_start'], () => {
             this._data.setReplay(true);
         });
@@ -127,8 +93,24 @@ export class WebsocketService {
                     this._data.setPlayerId(key, data.players[key].name, data.players[key].team);
                 }
             }
+            if(!this.clockActive && data.time > 0 && data.time < 300) {
+                this._data.setGameRunning(true);
+                this.clockActive = true;
+            }
             if(!this.matchOverview) {
-            for(const active of this.activePlayers) {
+                this.clockActive = data.game.ball.team !== 255;
+                if(data.game.ball.team !== 255) {
+                    this._data.setGameRunning(true);
+                }
+                if(data.game.hasWinner) {
+                    this._data.setGameRunning(false);
+                    const winner: string = data.game.teams[0].score > data.game.teams[1].score ? 'series-0' : 'series-1'
+                    this._storage.setLocalEntry(winner, this._storage.getLocalEntry(winner) + 1);
+                    this._data.setTeamWins();
+                    this.matchOverview = true;
+                    this._data.setMatchOverview(true);
+                }
+                for(const active of this.activePlayers) {
                     let check: boolean = false;
                     for(const key in data.players) {
                         if(active === data.players[key].id) {
@@ -140,11 +122,15 @@ export class WebsocketService {
                         this.activePlayers = this.activePlayers.filter(player => player !== active);
                     }
                 }
+            } else {
+                if(!data.game.hasWinner) {
+                    this.matchOverview = false;
+                    this._data.setMatchOverview(false);
+                }
             }
             for(const key in data.players) {
                 this._data.setPlayerStats(key, data.players[key].team, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key, data.players[key].demos, data.players[key].touches, data.players[key].speed, this.clockActive, this.matchOverview);
             }
-            if(!this.matchOverview && data.game.ball.team !== 255) this._data.setGameRunning(true);
             this._data.setDirector(data.game.hasTarget && !data.game.isReplay);
             this._data.setTeamScore(0, data.game.teams[0].score, this.matchOverview);
             this._data.setTeamScore(1, data.game.teams[1].score, this.matchOverview);

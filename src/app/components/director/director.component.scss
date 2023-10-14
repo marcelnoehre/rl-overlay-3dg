@@ -6,7 +6,7 @@
     width: 250px;
     border-radius: 250px;
     transform: translateX(127px) translateY(127px);
-    animation: background-change 3s infinite;
+    animation: background-change 0.5s ease forwards;
 
     border: 2px solid #282f39;
 }
@@ -35,13 +35,14 @@
     right: 0;
     width: calc(1920px * 0.275);
     height: 75px;
-    transform: skew(-10deg);
+    transform: skew(-10deg) translateX(30rem);
     display: flex;
     flex-direction: column;
     justify-content: center;
     background: linear-gradient(to bottom left, #303f55, #202020);
     color: white;
     font-size: 25px;
+    animation: move-in 1s ease forwards 0.5s;
 }
 
 .name {
@@ -84,5 +85,14 @@
     }
     100% {
         background: conic-gradient(var(--color) var(--boost), #202020 0%);
+    }
+}
+
+@keyframes move-in {
+    0% {
+        transform: skew(-10deg) translateX(30rem);
+    }
+    100% {
+        transform: skew(-10deg) translateX(0rem);
     }
 }

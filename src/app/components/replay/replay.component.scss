@@ -3,13 +3,14 @@
     bottom: 0;
     left: 0;
     height: 50px;
-    transform: skew(10deg) translateX(-10px);
+    transform: skew(10deg) translate(-10px, 75px);
     display: flex;
     background: linear-gradient(to bottom left, #303f55, #202020);
     color: white;
     font-size: 25px;
     border-top: 5px solid var(--team-color);
     border-right: 5px solid var(--team-color);
+    animation: move-in 1s ease forwards;
 }
 
 .label {
@@ -62,5 +63,14 @@
     100% {
         transform: scale(1);
         opacity: 1;
+    }
+}
+
+@keyframes move-in {
+    0% {
+        transform: skew(10deg) translate(-10px, 75px);
+    }
+    100% {
+        transform: skew(10deg) translate(-10px, 0);
     }
 }
