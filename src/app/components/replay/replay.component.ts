@@ -25,7 +25,7 @@ export class ReplayComponent implements OnInit {
     private _storage: StorageService) {}
 
   ngOnInit(): void {
-    this._event.eventGoalScored$.subscribe((goal: Goal) => {
+    this._event.goalScored$.subscribe((goal: Goal) => {
       this.goal = goal;
     });
     this._data.teams$.subscribe((teams: Team[]) => {
