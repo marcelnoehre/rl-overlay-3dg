@@ -141,29 +141,7 @@ export class WebsocketService {
             this._data.setPlayers();
         });
         this.subscribe('game', ['statfeed_event'], (data: any) => {
-            switch(data.event_name) {
-                case 'Goal':
-                    this._event.eventGoal(data.main_target.id, data.secondary_target.id);
-                    break;
-                case 'Assist':
-                    this._event.eventAssist(data.main_target.id, data.secondary_target.id);
-                    break;
-                case 'Save':
-                    this._event.eventSave(data.main_target.id, data.secondary_target.id);
-                    break;
-                case 'EpicSave':
-                    this._event.eventEpicSave(data.main_target.id, data.secondary_target.id);
-                    break;
-                case 'DemoLish':
-                    this._event.eventDemoLish(data.main_target.id, data.secondary_target.id);
-                    break;
-                case 'HatTrick':
-                    this._event.eventHatTrick(data.main_target.id, data.secondary_target.id);
-                    break;
-                case 'PlayMaker':
-                    this._event.eventPlayMaker(data.main_target.id, data.secondary_target.id);
-                    break;
-            }
+            this._event.statfeedEvent(data.event_name, data.main_target.id, data.secondary_target.id);
         });
         this.subscribe('game', ['goal_scored'], (data: any) => {
             this._event.showGoalScored(data.scorer.name, data.goalspeed, data.scorer.teamnum, data.scorer.assister);
