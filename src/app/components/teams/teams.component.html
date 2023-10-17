@@ -1,3 +1,4 @@
+
 <div class="team-container team-left">
     <div class="players">
         <div class="player" *ngFor="let player of players[0]; index as i">
@@ -15,6 +16,13 @@
         </div>
     </div>
 </div>
+<div class="statfeed-container statfeed-left">
+    <div class="statfeed" *ngFor="let player of players[0]; index as i">
+        <div class="event" *ngIf="i < 3" style="--team-color: {{ forceDefaultColors ? '#1873FF' : teams[player.team].color }}">
+            <img src="assets/images/statfeed/HatTrick.png">
+        </div>
+    </div>
+</div>
 <div class="team-container team-right">
     <div class="players">
         <div class="player" *ngFor="let player of players[1]; index as i">
@@ -29,6 +37,13 @@
             <div class="boostbar" *ngIf="i < 3">
                 <mat-progress-bar [value]="player.boost" style="--slider-color: {{forceDefaultColors ? '#C26418' : teams[player.team].color}}; transform: scale(-1);"></mat-progress-bar>
             </div>
+        </div>
+    </div>
+</div>
+<div class="statfeed-container statfeed-right">
+    <div class="statfeed" *ngFor="let player of players[1]; index as i">
+        <div class="event" *ngIf="i < 3" style="--team-color: {{ forceDefaultColors ? '#C26418' : teams[player.team].color }}">
+            <img src="assets/images/statfeed/HatTrick.png">
         </div>
     </div>
 </div>

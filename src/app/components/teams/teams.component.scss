@@ -73,6 +73,55 @@
     }
 }
 
+.statfeed-container {
+    position: absolute;
+    height: 130px;
+    width: calc(1920px * 0.17);
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 3px;
+}
+
+.statfeed-left {
+    transform: skew(10deg);
+    .event {
+        justify-content: right;
+        padding-right: 0.5rem;
+        background: linear-gradient(to right, transparent 50%, var(--team-color));
+        img {
+            transform: skew(-10deg);
+        }
+    }
+}
+
+.statfeed-right {
+    right: 0;
+    transform: skew(-10deg);
+    .event {
+        justify-content: left;
+        padding-left: 0.35rem;
+        background: linear-gradient(to left, transparent 50%, var(--team-color));
+        img {
+            transform: skew(10deg);
+        }
+    }
+}
+
+.statfeed {
+    height: 33.33%;
+    width: 100%;
+    color: white;
+    .event {
+        width: 100%;
+        height: 100%;
+        display: flex;
+    }
+}
+
+
  :host ::ng-deep {
     mat-progress-bar {
         background-color: black;
