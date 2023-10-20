@@ -59,7 +59,7 @@ export class TeamsComponent implements OnInit {
 
   showStatfeedEvent(team: number, player: number) {
     this.players[team][player].statfeedEvent = this.statfeedEvents[team][player][0];
-    setTimeout(() => this.removeFromQueue(team, player), 3000);
+    setTimeout(() => this.removeFromQueue(team, player), 4000);
   }
 
   removeFromQueue(team: number, player: number) {

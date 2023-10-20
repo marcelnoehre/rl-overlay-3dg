@@ -80,8 +80,6 @@
     margin-top: 30px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
     border-radius: 3px;
 }
 
@@ -90,7 +88,8 @@
     .event {
         justify-content: right;
         padding-right: 0.5rem;
-        background: linear-gradient(to right, transparent 50%, var(--team-color));
+        background: linear-gradient(to right, transparent 30%, var(--team-color));
+        opacity: 0.95;
         img {
             transform: skew(-10deg);
         }
@@ -103,7 +102,8 @@
     .event {
         justify-content: left;
         padding-left: 0.35rem;
-        background: linear-gradient(to left, transparent 50%, var(--team-color));
+        background: linear-gradient(to left, transparent 30%, var(--team-color));
+        opacity: 0.95;
         img {
             transform: skew(10deg);
         }
@@ -118,6 +118,7 @@
         width: 100%;
         height: 100%;
         display: flex;
+        border-radius: 3px;
     }
 }
 

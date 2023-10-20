@@ -60,7 +60,7 @@ export class DataService {
 
     setTeamInformation(team: number, name: string, color: string): void {
         this.teams[team].name = name;
-        this.teams[team].color = color;
+        this.teams[team].color = color === '#C26418' ? '#fd691d' : color;
         this._storage.setLocalEntry(Storage.TEAMS, this.teams);
         this.setGameAvailable(true);
     }

@@ -39,7 +39,7 @@ export class ReplayComponent implements OnInit {
   get activeColor(): string {    
     this.color = this.teams[this.goal.team].color;
     if(this.forceDefaultColors) {
-      this.color = this.goal.team === 0 ? '#1873FF' : '#C26418';
+      this.color = this.goal.team === 0 ? '#1873FF' : '#fd691d';
     }
     return this.color;
   }

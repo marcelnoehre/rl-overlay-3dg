@@ -7,7 +7,7 @@
                     {{ player.name }}
                 </div>
                 <div class="boost">
-                    {{ player.boost }}
+                    <ng-container *ngIf="!player.statfeedEvent">{{ player.boost }}</ng-container>
                 </div>
             </div>
             <div class="boostbar" *ngIf="i < 3">
@@ -28,21 +28,21 @@
         <div class="player" *ngFor="let player of players[1]; index as i">
             <div class="information" *ngIf="i < 3">
                 <div class="boost">
-                    {{ player.boost }}
+                    <ng-container *ngIf="!player.statfeedEvent">{{ player.boost }}</ng-container>
                 </div>
                 <div class="name" style="--name-size: {{player.name.length > 18 ? 20 - ((player.name.length - 18) / 1.75) + 'px' : '20px'}}">
                     {{ player.name }}
                 </div>
             </div>
             <div class="boostbar" *ngIf="i < 3">
-                <mat-progress-bar [value]="player.boost" style="--slider-color: {{forceDefaultColors ? '#C26418' : teams[player.team].color}}; transform: scale(-1);"></mat-progress-bar>
+                <mat-progress-bar [value]="player.boost" style="--slider-color: {{forceDefaultColors ? '#fd691d' : teams[player.team].color}}; transform: scale(-1);"></mat-progress-bar>
             </div>
         </div>
     </div>
 </div>
 <div class="statfeed-container statfeed-right">
     <div class="statfeed" *ngFor="let player of players[1]; index as i">
-        <div class="event" *ngIf="i < 3 && player.statfeedEvent" style="--team-color: {{ forceDefaultColors ? '#C26418' : teams[player.team].color }}">
+        <div class="event" *ngIf="i < 3 && player.statfeedEvent" style="--team-color: {{ forceDefaultColors ? '#fd691d' : teams[player.team].color }}">
             <img [src]="'assets/images/statfeed/' + player.statfeedEvent + '.png'">
         </div>
     </div>

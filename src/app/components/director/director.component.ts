@@ -44,7 +44,7 @@ export class DirectorComponent implements OnInit {
   get activeColor(): string {
     this.color = this.teams[this.target[0].team].color;
     if(this.forceDefaultColors) {
-      this.color = this.target[0].team === 0 ? '#1873FF' : '#C26418';
+      this.color = this.target[0].team === 0 ? '#1873FF' : '#fd691d';
     }
     return this.color;
   }
