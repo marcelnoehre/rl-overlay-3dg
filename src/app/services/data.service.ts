@@ -97,7 +97,8 @@ export class DataService {
                 touches: 0,
                 boostConsumption: 0,
                 speed: 0,
-                ticks: 0
+                ticks: 0,
+                statfeedEvent: ''
             };
         }
     }

@@ -18,8 +18,8 @@
 </div>
 <div class="statfeed-container statfeed-left">
     <div class="statfeed" *ngFor="let player of players[0]; index as i">
-        <div class="event" *ngIf="i < 3" style="--team-color: {{ forceDefaultColors ? '#1873FF' : teams[player.team].color }}">
-            <img src="assets/images/statfeed/HatTrick.png">
+        <div class="event" *ngIf="i < 3 && player.statfeedEvent" style="--team-color: {{ forceDefaultColors ? '#1873FF' : teams[player.team].color }}">
+            <img [src]="'assets/images/statfeed/' + player.statfeedEvent + '.png'">
         </div>
     </div>
 </div>
@@ -42,8 +42,8 @@
 </div>
 <div class="statfeed-container statfeed-right">
     <div class="statfeed" *ngFor="let player of players[1]; index as i">
-        <div class="event" *ngIf="i < 3" style="--team-color: {{ forceDefaultColors ? '#C26418' : teams[player.team].color }}">
-            <img src="assets/images/statfeed/HatTrick.png">
+        <div class="event" *ngIf="i < 3 && player.statfeedEvent" style="--team-color: {{ forceDefaultColors ? '#C26418' : teams[player.team].color }}">
+            <img [src]="'assets/images/statfeed/' + player.statfeedEvent + '.png'">
         </div>
     </div>
 </div>

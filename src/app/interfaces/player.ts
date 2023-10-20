@@ -14,5 +14,6 @@ export interface Player {
     touches: number,
     boostConsumption: number,
     speed: number,
-    ticks: number
+    ticks: number,
+    statfeedEvent: string
 }
