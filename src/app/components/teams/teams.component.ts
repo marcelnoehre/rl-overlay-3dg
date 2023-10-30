@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from 'src/app/enums/storage';
 import { Event } from 'src/app/interfaces/event';
@@ -11,7 +12,14 @@ import { StorageService } from 'src/app/services/storage.service';
 @Component({
   selector: 'app-teams',
   templateUrl: './teams.component.html',
-  styleUrls: ['./teams.component.scss']
+  styleUrls: ['./teams.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter', animate('0.8s ease-in-out')),
+      transition(':leave', animate('0.5s ease-in-out'))
+    ])
+  ]
 })
 export class TeamsComponent implements OnInit {
   teams: Team[] = [];
@@ -59,7 +67,7 @@ export class TeamsComponent implements OnInit {
 
   showStatfeedEvent(team: number, player: number) {
     this.players[team][player].statfeedEvent = this.statfeedEvents[team][player][0];
-    setTimeout(() => this.removeFromQueue(team, player), 4000);
+    setTimeout(() => this.removeFromQueue(team, player), 5000);
   }
 
   removeFromQueue(team: number, player: number) {

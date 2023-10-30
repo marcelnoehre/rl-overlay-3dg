@@ -90,6 +90,8 @@
         padding-right: 0.5rem;
         background: linear-gradient(to right, transparent 30%, var(--team-color));
         opacity: 0.95;
+        transform: translateX(100px);
+        animation: event-left 0.8s ease-in-out forwards;
         img {
             transform: skew(-10deg);
         }
@@ -104,6 +106,8 @@
         padding-left: 0.35rem;
         background: linear-gradient(to left, transparent 30%, var(--team-color));
         opacity: 0.95;
+        transform: translateX(-100px);
+        animation: event-right 0.8s ease-in-out forwards;
         img {
             transform: skew(10deg);
         }
@@ -148,5 +152,23 @@
     }
     100% {
         transform: skew(-10deg) translateX(15px);
+    }
+}
+
+@keyframes event-left {
+    0% {
+        transform: translateX(100px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}
+
+@keyframes event-right {
+    0% {
+        transform: translateX(-100px);
+    }
+    100% {
+        transform: translateX(0px);
     }
 }
