@@ -3,54 +3,82 @@
         <div class="scoreboard" style="--color-left: {{forceDefaultColors ? '#1873FF' : teams[0].color}}; --color-right: {{forceDefaultColors ? '#fd691d' : teams[1].color}};">
             <div class="header">
                 <span 
-                    *ngFor="let player of players[0]" 
+                    *ngFor="let player of players[0]; index as i" 
                     [ngClass]="mvp[0] === 0 && mvp[1] === player.score ? 'mvp' : ''" 
                     [ngStyle]="{'color': mvp[0] === 0 && mvp[1] === player.score ? '#ffdd00' : ''}"
                 >
-                    <img *ngIf="mvp[0] === 0 && mvp[1] === player.score" src="assets/images/match-overview/mvp.png">
-                    {{ player.name }}
+                    <ng-container *ngIf="i < 3">
+                        <img *ngIf="mvp[0] === 0 && mvp[1] === player.score" src="assets/images/match-overview/mvp.png">
+                        {{ player.name }}
+                    </ng-container>
                 </span>
                 <span style="font-style: italic;">vs.</span>
                 <span 
-                    *ngFor="let player of players[1]" 
+                    *ngFor="let player of players[1]; index as i" 
                     [ngClass]="mvp[0] === 1 && mvp[1] === player.score ? 'mvp' : ''" 
                     [ngStyle]="{'color': mvp[0] === 1 && mvp[1] === player.score ? '#ffdd00' : ''}"
                 >
-                    <img *ngIf="mvp[0] === 1 && mvp[1] === player.score" src="assets/images/match-overview/mvp.png">
-                    {{ player.name }}
+                    <ng-container *ngIf="i < 3">
+                        <img *ngIf="mvp[0] === 1 && mvp[1] === player.score" src="assets/images/match-overview/mvp.png">
+                        {{ player.name }}
+                    </ng-container>
                 </span>
             </div>
             <ng-container *ngFor="let key of keys; index as i">
                 <hr>
                 <div class="row" style="--average: {{averages[i]}}">
-                    <span *ngFor="let player of players[0]" [ngStyle]="{'color': player[key] === this.max[i] && this.max[i] > 0 ? '#ffdd00' : ''}">{{ player[key] }}</span>
+                    <span *ngFor="let player of players[0]; index as i" [ngStyle]="{'color': player[key] === this.max[i] && this.max[i] > 0 ? '#ffdd00' : ''}">
+                        <ng-container *ngIf="i < 3">
+                            {{ player[key] }}
+                        </ng-container>
+                    </span>
                     <span class="category">
                         <img [src]="'assets/images/match-overview/' + key + '.png'">
                         {{ key }}
                     </span>
-                    <span *ngFor="let player of players[1]" [ngStyle]="{'color': player[key] === this.max[i] && this.max[i] > 0 ? '#ffdd00' : ''}">{{ player[key] }}</span>
+                    <span *ngFor="let player of players[1]; index as i" [ngStyle]="{'color': player[key] === this.max[i] && this.max[i] > 0 ? '#ffdd00' : ''}">
+                        <ng-container *ngIf="i < 3">
+                            {{ player[key] }}
+                        </ng-container>
+                    </span>
                 </div>
             </ng-container>
             <ng-container>
                 <hr>
                 <div class="row" style="--average: {{averages[7]}}">
-                    <span *ngFor="let player of players[0]" [ngStyle]="{'color': player.boostConsumption === this.max[7] && this.max[7] > 0 ? '#ffdd00' : ''}">{{ player.boostConsumption }}</span>
+                    <span *ngFor="let player of players[0]; index as i" [ngStyle]="{'color': player.boostConsumption === this.max[7] && this.max[7] > 0 ? '#ffdd00' : ''}">
+                        <ng-container *ngIf="i < 3">
+                            {{ player.boostConsumption }}
+                        </ng-container>
+                    </span>
                     <span class="category">
                         <img src="assets/images/match-overview/boost.png">
                         BOOST
                     </span>
-                    <span *ngFor="let player of players[1]" [ngStyle]="{'color': player.boostConsumption === this.max[7] && this.max[7] > 0 ? '#ffdd00' : ''}">{{ player.boostConsumption }}</span>
+                    <span *ngFor="let player of players[1]; index as i" [ngStyle]="{'color': player.boostConsumption === this.max[7] && this.max[7] > 0 ? '#ffdd00' : ''}">
+                        <ng-container *ngIf="i < 3">
+                            {{ player.boostConsumption }}
+                        </ng-container>
+                    </span>
                 </div>
             </ng-container>
             <ng-container>
                 <hr>
                 <div class="row" style="--average: {{averages[8]}}">
-                    <span *ngFor="let player of players[0]" [ngStyle]="{'color': player.speed === this.max[8] && this.max[8] > 0 ? '#ffdd00' : ''}">{{ player.speed }}&nbsp;km/h</span>
+                    <span *ngFor="let player of players[0]; index as i" [ngStyle]="{'color': player.speed === this.max[8] && this.max[8] > 0 ? '#ffdd00' : ''}">
+                        <ng-container *ngIf="i < 3">
+                            {{ player.speed }}&nbsp;km/h
+                        </ng-container>
+                    </span>
                     <span class="category">
                         <img src="assets/images/match-overview/speed.png">
                         SPEED
                     </span>
-                    <span *ngFor="let player of players[1]" [ngStyle]="{'color': player.speed === this.max[8] && this.max[8] > 0 ? '#ffdd00' : ''}">{{ player.speed }}&nbsp;km/h</span>
+                    <span *ngFor="let player of players[1]; index as i" [ngStyle]="{'color': player.speed === this.max[8] && this.max[8] > 0 ? '#ffdd00' : ''}">
+                        <ng-container *ngIf="i < 3">
+                            {{ player.speed }}&nbsp;km/h
+                        </ng-container>
+                    </span>
                 </div>
             </ng-container>
         </div>
