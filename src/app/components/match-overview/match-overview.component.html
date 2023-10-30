@@ -10,7 +10,7 @@
                     <img *ngIf="mvp[0] === 0 && mvp[1] === player.score" src="assets/images/match-overview/mvp.png">
                     {{ player.name }}
                 </span>
-                <span>vs.</span>
+                <span style="font-style: italic;">vs.</span>
                 <span 
                     *ngFor="let player of players[1]" 
                     [ngClass]="mvp[0] === 1 && mvp[1] === player.score ? 'mvp' : ''" 
@@ -24,7 +24,7 @@
                 <hr>
                 <div class="row" style="--average: {{averages[i]}}">
                     <span *ngFor="let player of players[0]" [ngStyle]="{'color': player[key] === this.max[i] && this.max[i] > 0 ? '#ffdd00' : ''}">{{ player[key] }}</span>
-                    <span>
+                    <span class="category">
                         <img [src]="'assets/images/match-overview/' + key + '.png'">
                         {{ key }}
                     </span>
@@ -35,7 +35,7 @@
                 <hr>
                 <div class="row" style="--average: {{averages[7]}}">
                     <span *ngFor="let player of players[0]" [ngStyle]="{'color': player.boostConsumption === this.max[7] && this.max[7] > 0 ? '#ffdd00' : ''}">{{ player.boostConsumption }}</span>
-                    <span>
+                    <span class="category">
                         <img src="assets/images/match-overview/boost.png">
                         BOOST
                     </span>
@@ -46,7 +46,7 @@
                 <hr>
                 <div class="row" style="--average: {{averages[8]}}">
                     <span *ngFor="let player of players[0]" [ngStyle]="{'color': player.speed === this.max[8] && this.max[8] > 0 ? '#ffdd00' : ''}">{{ player.speed }}&nbsp;km/h</span>
-                    <span>
+                    <span class="category">
                         <img src="assets/images/match-overview/speed.png">
                         SPEED
                     </span>

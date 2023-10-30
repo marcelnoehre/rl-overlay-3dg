@@ -37,9 +37,6 @@
                     width: auto;
                 }
             }
-            span:nth-child(4) {
-                font-style: italic;
-            }
         }
         .row {
             width: 100%;
@@ -48,7 +45,7 @@
             span {
                 transform: translateY(12px);
             }
-            span:nth-child(4) {
+            .category {
                 border-image: linear-gradient(to right, transparent 7.5%, var(--color-left) 7.5%, var(--color-left) var(--average), var(--color-right) var(--average), var(--color-right) 92.5%, transparent 92.5%);
                 border-bottom: 15px solid;
                 border-image-slice: 1;
