@@ -8,7 +8,8 @@
             <img [src]="logoLeft">
         </div>
         <div class="team team-left" style="--name-size: {{nameSizeLeft}}; --team-color: {{forceDefaultColors ? '#1873FF' : teams[0].color}}">
-            <p>{{ teams[0].name }}</p>
+            <p *ngIf="goal !== 0">{{ teams[0].name }}</p>
+            <p *ngIf="goal === 0" class="goal-scored">GOAL!!!</p>
         </div>
         <div class="score" style="--team-color: {{forceDefaultColors ? '#1873FF' : teams[0].color}}">
             <p>{{ teams[0].score }}</p>
@@ -21,7 +22,8 @@
             <p>{{ teams[1].score }}</p>
         </div>
         <div class="team team-right" style="--name-size: {{nameSizeRight}}; --team-color: {{forceDefaultColors ? '#fd691d' : teams[1].color}}">
-            <p>{{ teams[1].name }}</p>
+            <p *ngIf="goal !== 1">{{ teams[1].name }}</p>
+            <p *ngIf="goal === 1" class="goal-scored">GOAL!!!</p>
         </div>
         <div class="logo logo-right">
             <img [src]="logoRight">

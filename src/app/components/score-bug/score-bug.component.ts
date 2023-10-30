@@ -1,9 +1,11 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { Storage } from 'src/app/enums/storage';
+import { Goal } from 'src/app/interfaces/goal';
 import { Team } from 'src/app/interfaces/team';
 import { AdminService } from 'src/app/services/admin.service';
 import { DataService } from 'src/app/services/data.service';
+import { EventService } from 'src/app/services/event.service';
 import { StorageService } from 'src/app/services/storage.service';
 
 @Component({
@@ -26,6 +28,7 @@ export class ScoreBugComponent implements OnInit {
   isOvertime: boolean = false;
   gameTime: string = '';
   wins: boolean[][] = [];
+  goal: number = -1;
   nameSizeLeft: string = '';
   nameSizeRight: string = '';
   forceDefaultColors: boolean = this._storage.getLocalEntry(Storage.FORCE_DEFAULT_COLORS);
@@ -37,10 +40,11 @@ export class ScoreBugComponent implements OnInit {
   constructor(
     private _admin: AdminService,
     private _data: DataService,
-    private _storage: StorageService
+    private _storage: StorageService,
+    private _event: EventService
     ) {}
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this._admin.seriesInfo$.subscribe((seriesInfo) => {
       this.seriesInfo = seriesInfo;
     });
@@ -80,6 +84,11 @@ export class ScoreBugComponent implements OnInit {
     });
     this._data.gametime$.subscribe((gameTime) => {
       this.gameTime = gameTime;
+    });
+    this._event.goalScored$.subscribe(async (goal: Goal) => {
+      this.goal = goal.team;
+      await new Promise(res => setTimeout(res, 3500));
+      this.goal = -1;
     });
   }
 

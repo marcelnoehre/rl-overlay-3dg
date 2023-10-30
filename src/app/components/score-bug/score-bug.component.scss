@@ -162,6 +162,11 @@
     }
 }
 
+.goal-scored {
+    font-weight: bold;
+    animation: blink 0.5s infinite;
+}
+
 .series {
     height: 20px;
     align-self: center;
@@ -207,5 +212,17 @@
         .win {
             transform: skew(10deg);
         }
+    }
+}
+
+@keyframes blink {
+    0% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
     }
 }
