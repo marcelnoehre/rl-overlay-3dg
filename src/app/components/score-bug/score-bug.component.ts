@@ -17,6 +17,10 @@ import { StorageService } from 'src/app/services/storage.service';
       state('void', style({ opacity: 0 })),
       transition(':enter', animate('1.25s ease-in-out')),
       transition(':leave', animate('0.75s ease-in-out'))
+    ]),
+    trigger('fadeIn', [
+      state('void', style({ opacity: 0 })),
+      transition(':enter', animate('1.25s ease-in-out')),
     ])
   ]
 })
@@ -87,7 +91,7 @@ export class ScoreBugComponent implements OnInit {
     });
     this._event.goalScored$.subscribe(async (goal: Goal) => {
       this.goal = goal.team;
-      await new Promise(res => setTimeout(res, 3500));
+      await new Promise(res => setTimeout(res, 3000));
       this.goal = -1;
     });
   }
