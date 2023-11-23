@@ -23,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     DirectorComponent,
     ReplayComponent,
     MatchOverviewComponent,
-    ControlPanelComponent
+    ControlPanelComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
