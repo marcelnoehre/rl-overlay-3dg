@@ -57,3 +57,11 @@
     transform: translateX(-50%);
     background: #1873FFb3;
 }
+
+.player-circle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+}

@@ -98,12 +98,14 @@ export class DataService {
                 boostConsumption: 0,
                 speed: 0,
                 ticks: 0,
-                statfeedEvent: ''
+                statfeedEvent: '',
+                x: 0,
+                y: 0
             };
         }
     }
 
-    setPlayerStats(id: string, team: number, score: number, goals: number, assists: number, saves: number, shots: number, boost: number, target: boolean, demos: number, touches: number, speed: number, clockActive: boolean, matchOverview: boolean) {
+    setPlayerStats(id: string, team: number, score: number, goals: number, assists: number, saves: number, shots: number, boost: number, target: boolean, demos: number, touches: number, speed: number, clockActive: boolean, matchOverview: boolean, x: number, y: number) {
         if(!matchOverview) {
             this.mapping[id].score = score;
             this.mapping[id].goals = goals;
@@ -117,6 +119,8 @@ export class DataService {
             this.mapping[id].target = target;
             this.mapping[id].demos = demos;
             this.mapping[id].touches = touches;
+            this.mapping[id].x = x;
+            this.mapping[id].y = y;
             if(clockActive) {
                 this.mapping[id].ticks++;
                 this.mapping[id].speed += speed;

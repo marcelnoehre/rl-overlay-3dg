@@ -15,5 +15,7 @@ export interface Player {
     boostConsumption: number,
     speed: number,
     ticks: number,
-    statfeedEvent: string
+    statfeedEvent: string,
+    x: number,
+    y: number
 }
