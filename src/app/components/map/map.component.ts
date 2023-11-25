@@ -26,16 +26,16 @@ export class MapComponent implements OnInit, OnDestroy {
     this.playerSubscription = this._data.players$.subscribe((players: Player[][]) => {
       this.players = players.map((playerArray: Player[]) => {
         return playerArray.map((player: Player) => {
-          player.x = this.mapCoordinate(player.x, 4080, -4080, 188, 0);
-          player.y = this.mapCoordinate(player.y, 5200, -5200, 242, 0);
+          player.x = this.mapCoordinate(player.x, 4080, -4080, 250, 0, 12);
+          player.y = this.mapCoordinate(player.y, 5200, -5200, 319, 0, 12);
           return player;
         });
       });
     });
     this._data.ball$.subscribe((ball: number[]) => {
       this.ball = [
-        this.mapCoordinate(ball[0], 4080, -4080, 188, 0),
-        this.mapCoordinate(ball[1], 5200, -5200, 242, 0),
+        this.mapCoordinate(ball[0], 4080, -4080, 250, 0, 14),
+        this.mapCoordinate(ball[1], 5200, -5200, 319, 0, 14),
       ];
     });
   }
@@ -44,10 +44,10 @@ export class MapComponent implements OnInit, OnDestroy {
     this.playerSubscription.unsubscribe();
   }
 
-  mapCoordinate(original: number, originalMax: number, originalMin: number, mappedMax: number, mappedMin: number): number {
-    let value = (((original - originalMin) * (mappedMax - mappedMin)) / (originalMax - originalMin)) + mappedMin;
+  mapCoordinate(original: number, originalMax: number, originalMin: number, mappedMax: number, mappedMin: number, circleSize: number): number {
+    let value = (((original - originalMin) * ((mappedMax - circleSize) - mappedMin)) / (originalMax - originalMin)) + mappedMin;
     if (value < mappedMin) return mappedMin;
-    if (value > mappedMax) return mappedMax;
+    if (value > (mappedMax - circleSize)) return (mappedMax - circleSize);
     return value;
   }
 }
