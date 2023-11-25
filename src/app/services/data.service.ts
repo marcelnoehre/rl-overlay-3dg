@@ -13,6 +13,7 @@ import { AdminService } from "./admin.service";
 export class DataService {
     private _teams: BehaviorSubject<Team[]> = new BehaviorSubject<Team[]>([]);
     private _players: BehaviorSubject<Player[][]> = new BehaviorSubject<Player[][]>([]);
+    private _ball: BehaviorSubject<number[]> = new BehaviorSubject<number[]>([188, 242]);
     private _gametime: BehaviorSubject<string> = new BehaviorSubject<string>('5:00');
     private _gameAvailable: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     private _gameRunning: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
@@ -135,6 +136,10 @@ export class DataService {
         ]);
     }
 
+    setBall(x: number, y: number): void {
+        this._ball.next([x, y]);
+    }
+
     setGameAvailable(gameAvailable: boolean): void {
         this._gameAvailable.next(gameAvailable);
     }
@@ -174,6 +179,10 @@ export class DataService {
 
     get players$(): Observable<Player[][]> {
         return this._players.asObservable();
+    }
+
+    get ball$(): Observable<number[]> {
+        return this._ball.asObservable();
     }
 
     get gameAvailable$(): Observable<boolean> {

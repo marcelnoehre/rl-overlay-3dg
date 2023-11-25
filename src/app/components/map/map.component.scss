@@ -8,7 +8,7 @@
     border-radius: 10px;
     border: 2px solid transparent;
     box-shadow: inset 0 0 7.5px rgba(255, 255, 255, 0.7);
-    background: linear-gradient(rgba(48, 63, 84, 0.9), rgba(48, 63, 84, 0.9)) padding-box, linear-gradient(to top, #1873FF, #fd691d) border-box;
+    background: linear-gradient(rgba(48, 63, 84, 0.9), rgba(48, 63, 84, 0.9)) padding-box, linear-gradient(to top, var(--color-bottom), var(--color-top)) border-box;
 }
 
 .map-container::before {
@@ -48,14 +48,14 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%) rotate(180deg);
-    background: #fd691db3;
+    background: calc(parseInt(var(--color-top), 16) + parseInt("b3", 16));
 }
 
 .penalty-area.bottom {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: #1873FFb3;
+    background: calc(parseInt(var(--color-bottom), 16) + parseInt("b3", 16));
 }
 
 .player-circle {

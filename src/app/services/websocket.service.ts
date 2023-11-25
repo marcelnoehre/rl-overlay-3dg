@@ -128,6 +128,7 @@ export class WebsocketService {
                     this._data.setMatchOverview(false);
                 }
             }
+            this._data.setBall(data.game.ball.location.X, data.game.ball.location.Y);
             for(const key in data.players) {
                 this._data.setPlayerStats(key, data.players[key].team, data.players[key].score, data.players[key].goals, data.players[key].assists, data.players[key].saves, data.players[key].shots, data.players[key].boost, data.game.target === key, data.players[key].demos, data.players[key].touches, data.players[key].speed, this.clockActive, this.matchOverview, data.players[key].location.X, data.players[key].location.Y);
             }
