@@ -48,14 +48,14 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%) rotate(180deg);
-    background: calc(parseInt(var(--color-top), 16) + parseInt("b3", 16));
+    background: var(--color-opacity-top);
 }
 
 .penalty-area.bottom {
     bottom: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: calc(parseInt(var(--color-bottom), 16) + parseInt("b3", 16));
+    background: var(--color-opacity-bottom);
 }
 
 .player-circle {
