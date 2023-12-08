@@ -12,6 +12,7 @@ import { StorageService } from 'src/app/services/storage.service';
   styleUrls: ['./control-panel.component.scss']
 })
 export class ControlPanelComponent implements OnInit {
+  password: string = this._storage.getLocalEntry(Storage.PASSWORD) || '';
   seriesInfo: string = this._storage.getLocalEntry(Storage.SERIES_INFO) || '';
   seriesLength: number = this._storage.getLocalEntry(Storage.SERIES_LENGTH) || 3;
   seriesLeft: number = this._storage.getLocalEntry(Storage.SERIES_LEFT) || 0;
@@ -120,5 +121,23 @@ export class ControlPanelComponent implements OnInit {
     this._storage.setLocalEntry(Storage.CHANGE, true);
     await new Promise<void>(done => setTimeout(() => done(), 1500));
     window.location.reload();
+  }
+
+  login() {
+    this.sha256(this.password).then(hash => {
+      this.sha256(hash).then(hash2 => {
+        this._storage.setLocalEntry(Storage.PASSWORD, hash2);
+        this._storage.setLocalEntry(Storage.CHANGE, true);
+      });
+    });
+  }
+
+  async sha256(message: string): Promise<string> {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(byte => byte.toString(16).padStart(2, '0')).join('');
+    return hashHex;
   }
 }

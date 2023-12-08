@@ -1,4 +1,5 @@
 export enum Storage {
+    PASSWORD = 'password',
     TEAMS = 'teams',
     NAME_LEFT = 'name-left',
     SERIES_LEFT = 'series-0',

@@ -1,7 +1,4 @@
 import { Injectable } from "@angular/core";
-import { ReplaySubject } from "rxjs";
-import { Team } from "../interfaces/team";
-import { Storage } from "../enums/storage";
 
 @Injectable({
 	providedIn: 'root'

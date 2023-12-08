@@ -8,6 +8,7 @@ import { StorageService } from "./storage.service";
 	providedIn: 'root'
 })
 export class AdminService implements OnDestroy {
+    private _password: BehaviorSubject<string>;
     private _seriesInfo: BehaviorSubject<string>;
     private _seriesLength: BehaviorSubject<number>;
     private _teams: BehaviorSubject<Team[]>;
@@ -22,6 +23,7 @@ export class AdminService implements OnDestroy {
     private interval: any;
 
     constructor(private _storage: StorageService) {
+        this._password = new BehaviorSubject<string>(this._storage.getLocalEntry(Storage.PASSWORD));
         this._seriesInfo = new BehaviorSubject<string>(this._storage.getLocalEntry(Storage.SERIES_INFO));
         this._seriesLength = new BehaviorSubject<number>(this._storage.getLocalEntry(Storage.SERIES_LENGTH));
         this._teams = new BehaviorSubject<Team[]>(this._storage.getLocalEntry(Storage.TEAMS));
@@ -44,6 +46,7 @@ export class AdminService implements OnDestroy {
 
     checkForChanges(): void {
         if(this._storage.getLocalEntry(Storage.CHANGE)) {
+            this._password.next(this._storage.getLocalEntry(Storage.PASSWORD));
             this._seriesInfo.next(this._storage.getLocalEntry(Storage.SERIES_INFO));
             this._seriesLength.next(this._storage.getLocalEntry(Storage.SERIES_LENGTH));
             this._teams.next(this._storage.getLocalEntry(Storage.TEAMS));
@@ -54,8 +57,12 @@ export class AdminService implements OnDestroy {
             this._logoLeft.next(this._storage.getLocalEntry(Storage.LOGO_LEFT));
             this._logoRight.next(this._storage.getLocalEntry(Storage.LOGO_RIGHT));
             this._hardReset.next(this._storage.getLocalEntry(Storage.HARD_RESET));
-            this._storage.setLocalEntry(Storage.CHANGE, false);            
+            this._storage.setLocalEntry(Storage.CHANGE, false);    
         }
+    }
+
+    get password$(): Observable<string> {
+        return this._password.asObservable();
     }
 
     get seriesInfo$(): Observable<string> {
@@ -98,4 +105,3 @@ export class AdminService implements OnDestroy {
         return this._hardReset.asObservable();
     }
 }
-

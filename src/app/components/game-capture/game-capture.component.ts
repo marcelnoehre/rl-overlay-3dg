@@ -19,6 +19,7 @@ import { WebsocketService } from 'src/app/services/websocket.service';
   ]
 })
 export class GameCaptureComponent {
+  password: string = '';
   gameAvailable: boolean = false;
   gameRunning: boolean = false;
   matchOverview: boolean = false;
@@ -38,6 +39,9 @@ export class GameCaptureComponent {
       }
 
   async ngOnInit(): Promise<void> {
+    this._admin.password$.subscribe((password: string) => {
+        this.password = password;
+    });
     this._data.gameAvailable$.subscribe((gameAvailable: boolean) => {
         this.gameAvailable = gameAvailable;
     });
@@ -66,4 +70,8 @@ export class GameCaptureComponent {
         }
     });
 }
+
+    show(): boolean {
+        return this.password === 'f6f9ff2557df787d2b2aab25033e9850f9f1a49830234ddb6c32ce570aea1d81';
+    }
 }

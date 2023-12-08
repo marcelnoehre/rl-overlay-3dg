@@ -4,6 +4,10 @@
             <p>&nbsp;&nbsp;Control-Panel</p>
             <!-- <button mat-fab color="basic" (click)="hardReset()"><mat-icon>restart_alt</mat-icon></button> -->
         </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <input type="password" style="height: 50%;" [(ngModel)]="password">
+            <button style="background-color: #FF00FF; height: 65%;" (click)="login()">login</button>
+        </div>
         <div>
             <p>Made by&nbsp;</p><p class="author">s Q e e Z</p>&nbsp;&nbsp;
         </div>
